@@ -1,2 +1,5 @@
 baseurl: Capacity
+markdown: kramdown  
+highlighter: rouge  
 kramdown:  
+    input: GFM  
