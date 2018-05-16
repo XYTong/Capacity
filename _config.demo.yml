@@ -11,52 +11,52 @@
 #    |  |  \   --. /  .'.  \  |  |
 #    `--'   `----''--'   '--' `--'
 
-
+# config file for demo site, DELETE IT IF YOU WANT.
 
 
 ## => Site Settings
 ##############################
 text_color_theme: default # "default" (default), "dark", "forest", "ocean", "chocolate", "orange"
-url: https://xytong.github.io # the base hostname & protocol for your site e.g. https://www.someone.com
-baseurl: /Capacity # does not include hostname
-title: XiangyuTONG's blog
+url: https://tianqi.name # the base hostname & protocol for your site e.g. https://www.someone.com
+baseurl: /jekyll-TeXt-theme # does not include hostname
+title: TeXt Theme
 description: > # this means to ignore newlines until "Language & timezone"
-  Someone's Blog
+  TeXt Theme Demo
 
 
-## => Language and Timezone
+# => Language and Timezone
 ##############################
-lang: zh # the language of your site, "en" (default, English), "zh"(简体中文), "zh-Hans"(简体中文), "zh-Hant"(繁體中文)
-timezone: Europe/Berlin # see https://en.wikipedia.org/wiki/List_of_tz_database_time_zones for the available values
+lang: en # the language of your site, "en" (default, English), "zh"(简体中文), "zh-Hans"(简体中文), "zh-Hant"(繁體中文)
+timezone: Asia/Shanghai # see https://en.wikipedia.org/wiki/List_of_tz_database_time_zones for the available values
 
 
 ## => Author and Social
 ##############################
 author:
-  name: Laplace_Operator
-  email: xiangyu.tong@s2012.tu-chemnitz.de.com # your Email address e.g. someone@site.com
-  facebook: # your Facebook username
-  twitter: # your Twitter username
-  github: # your GitHub username
-  linkedin: # your Linkedin username
-  googleplus: # your Google+ username
-  weibo: # your Weibo username
-  douban: # your Douban username
+  name: Someone
+  email: someone@somemail.com # your Email address e.g. someone@site.com
+  facebook: someone # your Facebook username
+  twitter: someone # your Twitter username
+  github: someone # your GitHub username
+  googleplus: someone # your Google+ username
+  weibo: someone # your Weibo username
+  douban: someone # your Douban username
+  linkedin: someone # your Linkedin username
 
 
 ## => GitHub Repository (if the site is hosted by GitHub)
 ##############################
-repository: XYTong/Capacity
-repository_tree: gh-pages
+repository: kitian616/jekyll-TeXt-theme
+repository_tree: master
 
 
 ## => Navigation
 ##############################
 paths:
   base: /
-  home: /
-  all:  /all.html
-  rss:  /feed.xml
+  home: https://github.com/kitian616/jekyll-TeXt-theme/
+  # all:  /all.html
+  # rss:  /feed.xml
 
 nav_lists:
   - titles:
@@ -65,6 +65,8 @@ nav_lists:
       zh-Hans: 关于
       zh-Hant: 關於
     url: /about.html
+
+
 
 
 ## => Post
@@ -93,7 +95,7 @@ chart: true # false (default), true
 ## => Paginate
 ##############################
 paginate: 8
-paginate_path: /blog/page:num # don't change this unless for special need
+paginate_path: /page:num
 
 
 ## => Sources
@@ -110,27 +112,27 @@ disqus:
 ## Gitalk
 # please refer to https://github.com/gitalk/gitalk for more info.
 gitalk:
-  clientID: # GitHub Application Client ID
-  clientSecret: # GitHub Application Client Secret
-  repository: # GitHub repo
-  owner: # GitHub repo owner
-  admin: # GitHub repo owner and collaborators, only these guys can initialize GitHub issues, IT IS A LIST.
-    # - your GitHub Id
+  clientID: 143666b578a416f82175 # Github Application Client ID
+  clientSecret: 1d1c0604a1a4bff9b59ab7f56724dc0e8b837775 # Github Application Client Secret
+  repository: gitalk-demo # Github repo
+  owner: kitian616 # Github repo owner
+  admin: # Github repo owner and collaborators, only these guys can initialize github issues, IT IS A LIST.
+    - kitian616
 
 
 ## => Pageview
 ##############################
 ## Leancloud
 leancloud:
-  app_id: # LeanCloud App id
-  app_key: # LeanCloud App key
-  app_class: # LeanCloud App class
+  app_id: uAG3OhdcH8H4fxSqXLyBljA7-gzGzoHsz
+  app_key: Mzf5m9skSwYVWVXhGiYMNyXs
+  app_class: TeXtDemo
 
 
 ## => Analytics
 ##############################
 ## Google Analytics
-ga_tracking_id: # Google Analytics id for the site
+ga_tracking_id: UA-71907556-1 #Google analytics id for the site
 
 
 ## => Build
@@ -154,7 +156,7 @@ exclude:
   - /docs
   - /node_modules
   - /screenshots
-  - /test
+  # - /test
   - /vendor
 
 

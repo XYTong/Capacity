@@ -11,33 +11,33 @@
 #    |  |  \   --. /  .'.  \  |  |
 #    `--'   `----''--'   '--' `--'
 
-
+# config file for development.
 
 
 ## => Site Settings
 ##############################
 text_color_theme: default # "default" (default), "dark", "forest", "ocean", "chocolate", "orange"
-url: https://xytong.github.io # the base hostname & protocol for your site e.g. https://www.someone.com
-baseurl: /Capacity # does not include hostname
-title: XiangyuTONG's blog
+url: # the base hostname & protocol for your site e.g. https://www.someone.com
+baseurl: # does not include hostname
+title: Someone's blog
 description: > # this means to ignore newlines until "Language & timezone"
   Someone's Blog
 
 
 ## => Language and Timezone
 ##############################
-lang: zh # the language of your site, "en" (default, English), "zh"(简体中文), "zh-Hans"(简体中文), "zh-Hant"(繁體中文)
-timezone: Europe/Berlin # see https://en.wikipedia.org/wiki/List_of_tz_database_time_zones for the available values
+lang: # the language of your site, "en" (default, English), "zh"(简体中文), "zh-Hans"(简体中文), "zh-Hant"(繁體中文)
+timezone: # see https://en.wikipedia.org/wiki/List_of_tz_database_time_zones for the available values
 
 
 ## => Author and Social
 ##############################
 author:
-  name: Laplace_Operator
-  email: xiangyu.tong@s2012.tu-chemnitz.de.com # your Email address e.g. someone@site.com
-  facebook: # your Facebook username
-  twitter: # your Twitter username
-  github: # your GitHub username
+  name: Someone
+  email: someone@somemail.com # your Email address e.g. someone@site.com
+  facebook: someone # your Facebook username
+  twitter: someone # your Twitter username
+  github: someone # your GitHub username
   linkedin: # your Linkedin username
   googleplus: # your Google+ username
   weibo: # your Weibo username
@@ -46,8 +46,8 @@ author:
 
 ## => GitHub Repository (if the site is hosted by GitHub)
 ##############################
-repository: XYTong/Capacity
-repository_tree: gh-pages
+repository: someone/someone.github.io
+repository_tree: master
 
 
 ## => Navigation
@@ -65,6 +65,8 @@ nav_lists:
       zh-Hans: 关于
       zh-Hant: 關於
     url: /about.html
+  - title: Jekyll
+    url: https://jekyllrb.com/
 
 
 ## => Post
@@ -92,7 +94,7 @@ chart: true # false (default), true
 
 ## => Paginate
 ##############################
-paginate: 8
+paginate: 3
 paginate_path: /blog/page:num # don't change this unless for special need
 
 
@@ -110,12 +112,12 @@ disqus:
 ## Gitalk
 # please refer to https://github.com/gitalk/gitalk for more info.
 gitalk:
-  clientID: # GitHub Application Client ID
-  clientSecret: # GitHub Application Client Secret
-  repository: # GitHub repo
-  owner: # GitHub repo owner
+  clientID: 143666b578a416f82175 # GitHub Application Client ID
+  clientSecret: 1d1c0604a1a4bff9b59ab7f56724dc0e8b837775 # GitHub Application Client Secret
+  repository: gitalk-demo # GitHub repo
+  owner: kitian616 # GitHub repo owner
   admin: # GitHub repo owner and collaborators, only these guys can initialize GitHub issues, IT IS A LIST.
-    # - your GitHub Id
+    - kitian616
 
 
 ## => Pageview
@@ -154,7 +156,7 @@ exclude:
   - /docs
   - /node_modules
   - /screenshots
-  - /test
+  # - /test
   - /vendor
 
 
