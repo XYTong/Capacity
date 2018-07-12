@@ -6,6 +6,7 @@ title: 4 typical Solutions for Joseph-Problem
 **这是非常出名且典型的一个问题:**
 
 + **Background** 
+
 In computer science and mathematics, the **Josephus problem** (or **Josephus permutation**) is 
 a theoretical problem related to a certain counting-out game. 
 People are standing in a circle waiting to be executed. Counting begins at a specified point in 
