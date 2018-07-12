@@ -27,13 +27,11 @@ def joseph(n,m):
     return (f)
 ```
 
-{{ page.date | date_to_string }}
-
-## {{ page.title }}
 + **时间复杂度Olog(n),空间复杂度Olog(n)** 
 
->*To iterate is human,to recurse divine.* 
-考虑一下，把每次循环体变成在一圈约瑟夫游♂戏中最后一个屎亡的状态。此时，已经有 *m(n//m)*  
+>*To iterate is human,to recurse divine.*  
+  
+考虑一下，把每次循环体变成在一圈约瑟夫游♂戏中最后一个屎亡的状态。此时，已经有 *m(n//m)* 
 个人都已经报完数，并且屎了 (*n//m*) 个人。即问题从*n*降低到 *n-n//m* ，根据 *n-n//m* 
 时候的答案*s*算出*n*时候的答案*sn*。这个有 **两种** 情况, 如果*s*在最后一个屎亡的人后 
 面，即 *s < n%m* , 那么 `s2 = s-n%m+n` ， 否则 `s2 = s-n%m+(s-n%m)//(m-1)` 。 
@@ -52,14 +50,12 @@ def joseph(n,m):
         return (x+n)
     return (x+x//(m-1))                 
                                 
-```
+``` 
 
-{{ page.date | date_to_string }} 
-
-## {{ page.title }}
 + **时间复杂度Olog(n),空间复杂度O(1)** 
 
->*Explicit is better than implicit.* 
+>*Explicit is better than implicit.*  
+  
 我们换种思路，不妨把整个报数循环展开, 用第几次报数来表示。第*k*个屎的人即使第 *km+m-1* 
 次报数滴人(亦是从0开始计数), 设第p个报数的人x, 则有 `p = m*a+b (0 <= b < m)`。且经过 
 前p次报数，一共屎了 *p//m = a* ，总共loop还剩下 *n-a* 人。如果x本次没有屎，那下次报数 
