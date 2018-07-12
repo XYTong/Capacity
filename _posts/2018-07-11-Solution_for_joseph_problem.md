@@ -1,13 +1,72 @@
 ---
 layout: post
-title: 3 typical Solutions for Joseph-Problem 
+title: 4 typical Solutions for Joseph-Problem 
 ---
 ## {{ page.title }}
 **这是非常出名且典型的一个问题:**
+
++ **Background** 
+In computer science and mathematics, the **Josephus problem** (or **Josephus permutation**) is 
+a theoretical problem related to a certain counting-out game. 
+People are standing in a circle waiting to be executed. Counting begins at a specified point in 
+the circle and proceeds around the circle in a specified direction. After a specified number of 
+people are skipped, the next person is executed. The procedure is repeated with the remaining 
+people, starting with the next person, going in the same direction and skipping the same number 
+of people, until only one person remains, and is freed. 
+The problem, given the number of people, starting point, direction, and number to be skipped, is 
+to choose the position in the initial circle to avoid execution. 
+
+> *The problem is named after Flavius Josephus, a Jewish historian living in the 1st century. According*
+*to Josephus' account of the siege of Yodfat, he and his 40 soldiers were trapped in a cave by Roman*
+*soldiers. They chose suicide over capture, and settled on a serial method of committing suicide by*
+*drawing lots. Josephus states that by luck or possibly by the hand of God, he and another man remained* 
+*until the end and surrendered to the Romans rather than killing themselves.*
  
-一共n个人（0...n-1)围成一圈，从0开始计数，每轮到第m个人，这个人就会屎，之后循环继续，直到所有人都屎完（剩最后一个人自动屎）。 
+下面给出四种解♂法:
  
-下面给出三种解♂法:
++ **时间复杂度O(n*m),空间复杂度O(1)** 
+
+比较简单的做法是用循环单链表模拟整个过程，时间复杂度是O(n*m)。
+如果只是想求得最后剩下的人，则可以用数学推导的方式得出公式。且 
+先看看模拟过程的解法。 
+
+下面是*python*语言实现: 
+
+```py
+class Node(object):
+	def __init__(self, value):
+		self.value = value 
+		self.next = None
+
+def create_linkList(n):
+	head = Node(1)
+	pre = head
+	for i in range(2, n+1):
+		newNode = Node(i)
+		pre.next= newNode
+		pre = newNode
+	pre.next = head
+	return head
+
+n = 5 #总的个数
+m = 2 #数的数目
+if m == 1: #如果是1的话，特殊处理，直接输出
+	print (n)  
+else:
+	head = create_linkList(n)
+	pre = None
+	cur = head
+	while cur.next != cur: #终止条件是节点的下一个节点指向本身
+		for i in range(m-1):
+			pre =  cur
+			cur = cur.next
+		print (cur.value)
+		pre.next = cur.next
+		cur.next = None
+		cur = pre.next
+	print (cur.value)
+``` 
+
 
 + **时间复杂度O(n),空间复杂度O(1)** 
 
@@ -76,5 +135,6 @@ def joseph(n,m,k):
 参考: 
 + [maskray](http://maskray.me/blog/2013-08-27-josephus-problem-two-log-n-solutions) 
 + [Josephus for large n](http://stackoverflow.com/questions/4845260/josephus-for-large-n-facebook-hacker-cup)
++ [WiKi](https://zh.wikipedia.org/wiki/%E7%BA%A6%E7%91%9F%E5%A4%AB%E6%96%AF%E9%97%AE%E9%A2%98)
 
 {{ page.date | date_to_string }}
