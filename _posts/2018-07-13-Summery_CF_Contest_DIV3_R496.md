@@ -104,9 +104,10 @@ else:
 ``` 
  
 + [D. Polycarp and Div 3](http://codeforces.com/contest/1005/problem/D) 
-> *Print the maximum number of numbers divisible by 3 that Polycarp can get by making vertical cuts in the given number s.* 
-思路:**最最最最**简单的dp问题，不要怂，直接写就是了！ 
+> *Print the maximum number of numbers divisible by 3 that Polycarp can get by making vertical cuts in the given number s.*  
 
+
+思路:**最最最最**简单的dp问题，不要怂，直接写就是了！ 
 
 ```py 
 a = str(input())
