@@ -87,7 +87,7 @@ int popcount_3(uint64 x) {
 + **Given a number of height in inches and a number of height in centimeters, tell whether they equal each other.**
 
 it's so **braindead** so that i don't need to explain. 
-以下是*c++*语言实现: 
+following是*c++*语言实现: 
 
 ```cpp
 #include <iostream>
@@ -95,9 +95,10 @@ using namespace std;
 int main() {
     float in_cm;
     float in_inches;
+    const float EPSINON = 0.00001;
     cin >> in_cm >> in_inches;
     in_inches = in_inches * 2.54;
-    if (in_cm == in_inches) {
+    if (- EPSINON<=in_cm-in_inches && in_cm-in_inches <= EPSINON) {
         cout << "YES";
     }
     else {
@@ -216,7 +217,61 @@ int main() {
         return ones;
     }
    ``` 
-+ **Given a string of a heximal number(might not be an integer), print it in decimal form.**
++ **Given a string of a heximal number(might not be an integer), print it in decimal form.** 
+
+according to [ASCII](https://zh.wikipedia.org/wiki/ASCII) : 
+**Printable characters** 
+
+Binary|Oct|Dec|Hex|Glyph
+---|:--:|:--:|:--:|---:
+011 0000|060|48|30|0
+011 0001|061|49|31|1
+011 0010|062|50|32|2
+011 0011|063|51|33|3
+011 0100|064|52|34|4
+011 0101|065|53|35|5
+011 0110|066|54|36|6
+011 0111|067|55|37|7
+011 1000|070|56|38|8
+011 1001|071|57|39|9
+100 0001|101|65|41|A
+100 0010|102|66|42|B
+100 0011|103|67|43|C
+100 0100|104|68|44|D
+100 0101|105|69|45|E
+100 0110|106|70|46|F
+100 0111|107|71|47|G
+...|...|...|...|...
+
+so here is the code in *c++* : 
+
+```cpp
+#include <iostream>
+#include <string>
+#include <math.h>
+using namespace std;
+int i, sum;
+int main() {
+    string hexd;
+    cin >> hexd;
+    int n = hexd.length();
+    sum = 0;
+    for (i=n-1;i>=0;i--) {
+        if (hexd[i]>='0' && hexd[i] <= '9') {
+            sum+=(hexd[i]-48)*pow(16,n-i-1);
+        }
+        else if (hexd[i]>='A' && hexd[i]<='F') {
+            sum+=(hexd[i]-55)*pow(16,n-i-1);
+        }
+    }
+    cout << sum;
+}
+``` 
+specially, if it might not be an integer, we just need do a tiny change. 
+find the index `.` and... 
+
++ **Write a programm of encryption and decryption of Caesar ciphering.** 
+
 
 
 
