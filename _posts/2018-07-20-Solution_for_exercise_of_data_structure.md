@@ -121,6 +121,103 @@ So the clang document says (emphasis mine):
 
 > *This feature allows identifiers to contain certain Unicode characters, as specified by the active language standard;* 
 [Emoji List](https://en.wikipedia.org/wiki/Hamming_weight)
+[EmojiCodeInstall](https://github.com/emojicode/emojicode) 
+
++ **Given *n* integers, each of them appears twice except for one, which appears exactly once. Find that single one.** 
+
+We can use sorting to finish it with a time complexity O(nlogn). **But** there is a more NB way which use **bitwise** operators 
+for a solution that is O(n) time and O(1) space. As a common is the feature `x^y^x=y^x^x=y`. So in this case we do `^` for all 
+the elements of the set, finally got the answer which only appears once. 
+the following is the realisierung of *c++* : 
+
+```cpp
+#include <stdio.h>
+#include <iostream>
+using namespace std;
+int n, i;
+int a[100];
+int findsigular (int a[], int len) {
+    int res = 0;
+    int j = 0;
+    for (j=0;j<len;j++) {
+        res = res ^ a[j];
+    }
+    return res;
+}
+int main() {
+    cin >> n;
+    for (i=0;i<n;i++) {
+            cin >> a[i];
+    }
+    cout << findsigular(a,n);
+}
+``` 
+
+   + advanced: **Given *n* integers, each of them appears three times except for one, which appears exactly once. Find that single one.** 
+   > ‘ones’ and ‘twos’ are initialized as 0. For every new element in array, find out the common set bits in the new element and previous value of ‘ones’. These common set bits are actually the bits that should be added to ‘twos’. So do bitwise OR of the common set bits with ‘twos’. ‘twos’ also gets some extra bits that appear third time. These extra bits are removed later.
+   Update ‘ones’ by doing XOR of new element with previous value of ‘ones’. There may be some bits which appear 3rd time. These extra bits are also removed later. 
+   Both ‘ones’ and ‘twos’ contain those extra bits which appear 3rd time. Remove these extra bits by finding out common set bits in ‘ones’ and ‘twos’. 
+   the [following](https://www.geeksforgeeks.org/find-the-element-that-appears-once/) is the realisierung of *c++* : 
+
+   ```cpp 
+    int getSingle(int arr[], int n)
+    {
+        int ones = 0, twos = 0 ;
+    
+        int common_bit_mask;
+    
+        // Let us take the example of {3, 3, 2, 3} to understand this
+        for( int i=0; i< n; i++ )
+        {
+            /* The expression "one & arr[i]" gives the bits that are
+            there in both 'ones' and new element from arr[].  We
+            add these bits to 'twos' using bitwise OR
+    
+            Value of 'twos' will be set as 0, 3, 3 and 1 after 1st,
+            2nd, 3rd and 4th iterations respectively */
+            twos  = twos | (ones & arr[i]);
+    
+    
+            /* XOR the new bits with previous 'ones' to get all bits
+            appearing odd number of times
+    
+            Value of 'ones' will be set as 3, 0, 2 and 3 after 1st,
+            2nd, 3rd and 4th iterations respectively */
+            ones  = ones ^ arr[i];
+    
+    
+            /* The common bits are those bits which appear third time
+            So these bits should not be there in both 'ones' and 'twos'.
+            common_bit_mask contains all these bits as 0, so that the bits can 
+            be removed from 'ones' and 'twos'   
+    
+            Value of 'common_bit_mask' will be set as 00, 00, 01 and 10
+            after 1st, 2nd, 3rd and 4th iterations respectively */
+            common_bit_mask = ~(ones & twos);
+    
+    
+            /* Remove common bits (the bits that appear third time) from 'ones'
+                
+            Value of 'ones' will be set as 3, 0, 0 and 2 after 1st,
+            2nd, 3rd and 4th iterations respectively */
+            ones &= common_bit_mask;
+    
+    
+            /* Remove common bits (the bits that appear third time) from 'twos'
+    
+            Value of 'twos' will be set as 0, 3, 1 and 0 after 1st,
+            2nd, 3rd and 4th itearations respectively */
+            twos &= common_bit_mask;
+    
+            // uncomment this code to see intermediate values
+            //printf (" %d %d n", ones, twos);
+        }
+    
+        return ones;
+    }
+   ``` 
++ **Given a string of a heximal number(might not be an integer), print it in decimal form.**
+
 
 
 {{ page.date | date_to_string }}
