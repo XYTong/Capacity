@@ -272,7 +272,54 @@ find the index `.` and...
 
 + **Write a programm of encryption and decryption of Caesar ciphering.** 
 
+```cpp
+#include <iostream>
+#include <cmath>
+#include <string.h>
+using namespace std;
+int main() {
+    char a[105],ch;
+    int k, i, j;
+    cout << "please enter Key(k):";
+    cin >> k;
+    cout << "please select encryption(0) or decryption(1): ";
+    cin >> ch;
+    if (ch=='0') {
+        cout << "please enter Plaintext string:";
+        cin >> a;
+        for (i=0; i<strlen(a); i++) {
+            if (a[i]>='a' && a[i]<='z') {
+                cout << (char)((a[i]-'a'+k)%26 + 'a');
+            }
+            else if (a[i]>='A' && a[i]<='Z') {
+                cout << (char)((a[i]-'A'+k)%26 + 'A');
+            }
+        }
+    }
+    else if (ch=='1') {
+        cout << "please enter cyphertext string: ";
+        cin >> a;
+        for (j=0;j<strlen(a);j++) {
+            if (a[j]>='a' && a[j]<='z') {
+                cout << (char)((a[j]-'a'+26-k)%26 + 'a');
+            }
+            else if (a[j]>='A' && a[j]<='Z') {
+                cout << (char)((a[j]-'A'+26-k)%26+'A');
+            }
+        }
+    }
+}
+``` 
 
++ Name algorithms of string searching and compare their advantages and disadvantages. 
 
+Algorithm|Preprocessing time|Matching time|space
+---|:--:|:--:|---:
+Naïve string-search algorithm|none|Θ(nm)|none
+Rabin–Karp algorithm|Θ(m)|average Θ(n + m)|O(1)
+Knuth–Morris–Pratt algorithm|Θ(m)|Θ(n)|Θ(m)
+Boyer–Moore string-search algorithm|Θ(m + k)|best Ω(n/m)|Θ(k)
+Bitap algorithm|Θ(m + k)|O(mn)| 
+Two-way string-matching algorithm|Θ(m)|O(n+m)|O(1)
 
 {{ page.date | date_to_string }}
