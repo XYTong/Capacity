@@ -533,5 +533,67 @@ int main()
     cout <<endl<<"计算结果：" << Calculate(vecOut)<<endl ;
     return 0;
 }
-```
+``` 
+
+for the case which only contains Operator `+` and `-` we can write more simple and explicitly instead of using **Stack** 
+here is the code: 
+
+```cpp 
+#include <string>
+#include <iostream>
+using namespace std;
+float calculate(float Operand1, float Operand2, char Operator) {
+    float res = 0 ;
+    if (Operator == '+') {
+        res = Operand1 + Operand2;
+    }
+    else if (Operator == '-') {
+        res = Operand1 - Operand2;
+    }
+    return res;
+}
+
+float EE(const string& str) {
+    float Operand1 = 0;
+    float Operand2 = 0;
+    char Operator = 0;
+    for (size_t i=0, size=str.size(); i<size; ++i) {
+        const char& ch = str[i];
+        if ('0'<=ch && ch<='9') {
+            if (Operator == 0) {
+                Operand1 = Operand1*10 + ch - '0';
+            }
+            else {
+                Operand2 = Operand2*10 + ch - '0';
+            }
+        }
+        else if (ch=='+' || ch=='-') {
+            if (Operator == 0) {
+                Operator = ch;
+            }
+            else {
+                Operand1 = calculate(Operand1, Operand2, Operator);
+                Operand2 = 0;
+                Operator = ch;
+            }
+        }
+    }
+    Operand1 = calculate(Operand1, Operand2, Operator);
+    return Operand1;
+}
+int main() {
+    string str;
+    cin >> str;
+    float Res = EE(str);
+    cout << str << "=" << Res << endl;
+}
+``` 
+
+## Basic data structures 
+
+### Linked list 
+
++ Use arrays to implement linked lists. 
+
+
 {{ page.date | date_to_string }}
