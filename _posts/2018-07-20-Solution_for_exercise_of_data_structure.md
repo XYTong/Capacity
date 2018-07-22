@@ -2,11 +2,15 @@
 layout: post
 title: me,data structure, exercise, solution
 ---
-## {{ Part.1 }}
+# Part I
 **thanks for the help by [simonmysun](https://github.com/simonmysun) for the Collectionin in learning and practicing of data structure** 
  
 --- 
 the following comes the solutions and summary of [data structure](https://xytong.github.io/Capacity/2018/07/20/Learning_data_structure.html): 
+
+## Data types 
+
+### Primitive types 
 
 + **Given two 32-bit signed integers *a* and *b*, print how many bits changes when turning *a* to *b*.**
 
@@ -217,6 +221,9 @@ int main() {
         return ones;
     }
    ``` 
+
+### Composite types or non-primitive type 
+
 + **Given a string of a heximal number(might not be an integer), print it in decimal form.** 
 
 according to [ASCII](https://zh.wikipedia.org/wiki/ASCII) : 
