@@ -2,7 +2,7 @@
 layout: post
 title: me,data structure, exercise, solution
 ---
-## {{ page.title }}
+## {{ Part.1 }}
 **thanks for the help by [simonmysun](https://github.com/simonmysun) for the Collectionin in learning and practicing of data structure** 
  
 --- 
