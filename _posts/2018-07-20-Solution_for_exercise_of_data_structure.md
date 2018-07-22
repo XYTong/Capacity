@@ -221,6 +221,7 @@ int main() {
         return ones;
     }
    ``` 
+--- 
 
 ### Composite types or non-primitive type 
 
@@ -327,6 +328,210 @@ Rabin–Karp algorithm|Θ(m)|average Θ(n + m)|O(1)
 Knuth–Morris–Pratt algorithm|Θ(m)|Θ(n)|Θ(m)
 Boyer–Moore string-search algorithm|Θ(m + k)|best Ω(n/m)|Θ(k)
 Bitap algorithm|Θ(m + k)|O(mn)| 
-Two-way string-matching algorithm|Θ(m)|O(n+m)|O(1)
+Two-way string-matching algorithm|Θ(m)|O(n+m)|O(1) 
 
++ **Implement a expression evaluator supporting decimal numbers(with or without seperator), + and −.** 
+
+acctually if we wanna figure out like 编译原理 stuff, first step is **lexical analysis**, then **Syntacticanalysis** 
+here is the steps:
+1. we spilt each of the data, like `3*2.3+2`, to `3`, `*`, `2.3`, `+`, `2` 
+2. from **Infix notation** to **RPN**, `3`, `2.3`, `*`, `2`, `+` 
+3. use the feature of stack to caculate the result 
+and there are some tiny tipps for that: 
+1. 符号栈top()优先级大于当前遍历的符号的话，出栈，再入当前当前遍历的符号入栈。 
+2. 遇’(‘左括号，符号栈保持不变，并添加’(‘入栈。 
+3. 遇’)’右括号，符号栈一直出栈，直到遇到’(‘左括号。
+
+[code](https://blog.csdn.net/what951006/article/details/77892670)(*c++*) : 
+```cpp 
+#include <iostream>
+#include <stack>
+#include <algorithm>
+#include <vector>
+using namespace std;
+enum AnalysisType:unsigned char{FLOAT=0x01,OPERATOR=0x02};
+struct ItemValue
+{
+    union ValueUnion
+    {
+        float fdigit;
+        char symbol;
+    };
+    AnalysisType type;
+    ValueUnion value;
+};
+//简单的int加减乘除
+int GetPriority(char symbol)
+{
+    switch (symbol)
+    {
+    case '+':
+    case '-':
+        return 0;
+    case '*':
+    case '/':
+        return 1;
+    case '(':
+    case ')':
+        return 2;
+    }
+    return -1;
+}
+
+bool IsOperator(char symbol)
+{
+    switch (symbol)
+    {
+        case '+':
+        case '-':
+        case '*':
+        case '/':
+        case '(':
+        case ')':
+        return true;
+    }
+    return false;
+}
+//转成vector存
+void wordsAnalysis(char*pIn, vector<ItemValue>&vec)
+{
+    int nCount = strlen(pIn);
+    int nIndex = 0;
+    while (nIndex<nCount)
+    {
+        ItemValue item = { FLOAT,0};
+//处理操作符
+        if (IsOperator(pIn[nIndex]))//如果是操作符
+        {
+            item.type = OPERATOR;
+            item.value.symbol = pIn[nIndex];
+            vec.push_back(item);
+        }
+//处理数字
+        int nTemp = nIndex;
+        char nBuffer[20] = {0};//20位
+        while (isdigit(pIn[nTemp]) || '.'==pIn[nTemp])
+        {   
+            nBuffer[nTemp - nIndex]=pIn[nTemp];
+            ++nTemp;
+        }
+        if (nTemp != nIndex)
+        {
+            item.value.fdigit = atof(nBuffer);
+            vec.push_back(item);
+        }
+//////////
+        if (nTemp != nIndex)
+            nIndex += strlen(nBuffer);
+        else
+            ++nIndex;
+    }
+}
+//中缀转后缀
+void midToLast(vector<ItemValue> & vecIn, vector<ItemValue> & vecOut)
+{
+    ItemValue item{ OPERATOR ,0.0f };
+    stack<char> stack_symbol;
+    for_each(std::begin(vecIn), std::end(vecIn), [&](ItemValue &it) {
+        if (FLOAT == it.type )
+        {
+            vecOut.push_back(it);
+        }
+        else if (OPERATOR == it.type)
+        {
+            if (')' == it.value.symbol)
+            {
+                while (!stack_symbol.empty())
+                {
+                    if (stack_symbol.top() == '(')
+                    {
+                        stack_symbol.pop();
+                        return;
+                    }
+                    item.value.symbol = stack_symbol.top();
+                    stack_symbol.pop();
+                    vecOut.push_back(item);
+                }
+            }
+            if (!stack_symbol.empty())
+            {
+                if (GetPriority(stack_symbol.top()) - GetPriority(it.value.symbol) >= 0 && stack_symbol.top()!='(')
+                {
+                    item.value.symbol = stack_symbol.top();
+                    stack_symbol.pop();
+                    vecOut.push_back(item);
+                }
+            }
+            if(')' != it.value.symbol)
+                stack_symbol.push(it.value.symbol);
+        }
+    });
+    //把栈里的操作符提出来
+    while (!stack_symbol.empty())
+    {
+        item.value.symbol = stack_symbol.top();
+        stack_symbol.pop();
+        vecOut.push_back(item);
+    }
+}
+//计算
+float Calculate(vector<ItemValue>& vec)
+{
+    float fResult=0.0f;
+    stack<ItemValue> stack_value;
+    for_each(std::begin(vec), std::end(vec), [&](ItemValue &it) {
+        if (FLOAT == it.type)
+        {
+            stack_value.push(it);
+        }
+        else if(OPERATOR == it.type)
+        {
+            ItemValue Value1, Value2 ;
+            Value2=stack_value.top();
+            stack_value.pop();
+
+            Value1=stack_value.top();
+            stack_value.pop();
+
+            switch (it.value.symbol)
+            {
+            case '+':
+                Value1.value.fdigit += Value2.value.fdigit;
+                break;
+            case '-':
+                Value1.value.fdigit -= Value2.value.fdigit;
+                break;
+            case '*':
+                Value1.value.fdigit *= Value2.value.fdigit;
+                break;
+            case '/':
+                Value1.value.fdigit /= Value2.value.fdigit;
+                break;
+            }
+            Value1.type = FLOAT;
+            stack_value.push(Value1);
+        }
+    });
+    fResult = stack_value.top().value.fdigit;
+    return fResult;
+}
+
+int main()
+{
+    char buffer[64] = {0};
+    vector<ItemValue> vecIn,vecOut;
+    cout << "请输入表达式：";
+    cin >> buffer;
+    wordsAnalysis(buffer, vecIn);//拆分数据
+    midToLast(vecIn,vecOut);//转到后缀表达式，vecOut内
+    cout << "中缀到后缀：";
+    for_each(std::begin(vecOut), std::end(vecOut), [&](ItemValue &it) {
+        FLOAT == it.type?       
+        cout << it.value.fdigit << "  ":
+        cout << (char)it.value.symbol << "  ";
+    });
+    cout <<endl<<"计算结果：" << Calculate(vecOut)<<endl ;
+    return 0;
+}
+```
 {{ page.date | date_to_string }}
