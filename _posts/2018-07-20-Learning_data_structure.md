@@ -1,8 +1,15 @@
-# Learn Data Structures by Practicing Part I
+---
+layout: post
+title: Learn Data Structures by Practicing - Part I
+---
+
+# Learn Data Structures by Practicing - Part I
 The structure of this article is derived from [here](https://en.wikipedia.org/w/index.php?oldid=850927589). However the organization of this wikipedia article is a mess. It need to be updated urgently in order not to mislead the newbies. 
 
 > "Algorithm is to construct a proper structure, and insert data. "
 > ---kulasama
+
+Recomendation on hints: Use as few hints as possible. 
 
 ## Data types
 ### Primitive types
@@ -11,6 +18,7 @@ Objectives: Knowing how the datum is stored, exploiting intrinsic features of it
 * You should be able to apply all possible operators to variables of these types and predict the results. 
 * You should be able to predict the results of conversions between these types.
 * You should know the limits of these types and should be able to predict the results of exceeding them. 
+
 #### Boolean
 #### Character
 #### Floating point
@@ -29,7 +37,7 @@ Excercises
   * Hint: Hamming weight of $a\underline\vee b$
 * Given a number of height in inches and a number of height in centimeters, tell whether they equal each other. 
 * Explain ASCII code $0$, $9$, $10$, $13$, and declare variables of them in charactor literals.
-* How to print an emoji? 
+* How to process emojis? 
 * Given $n$ integers, each of them appears twice except for one, which appears exactly once. Find that single one.
   * Advanced: Given $n$ integers, each of them appears three times except for one, which appears exactly once. Find that single one.
 
@@ -39,6 +47,7 @@ Excercises
 
 ### Composite types or non-primitive type
 Objectives: Getting familiar with how multiple data are organized basically. 
+
 #### Array
 #### Record, tuple, or structure
 #### String
@@ -59,11 +68,16 @@ Excercises
   * Compressed sparse row
   * Compressed sparese column
   * Diagnal
-  * ELLPACK
-  * Hybrid (ELLPACK + Coordinates)
   * Orthogonal linked list
-* Implement a hash table. 
+  * ELLPACK
+  * ELLPACK + Coordinates
+* Implement a hash table.
   * How do you hash the keys and how do you handle the conflictions? 
+  * Hint: Consider there are $n$ key-value pairs and the keys are respectfully $k\ldots k+n$, where $k$ is an constant integer, try to design a structure storing and retrieving values by keys in $O\left(1\right)$.
+    * What if the keys are $3*k$, where $k$ is in $1\ldots n$? 
+    * What if the keys are distinct integers? 
+    * What if the keys are mostly distinct integers?
+    * What if the keys are strings? 
 
 ---
 
@@ -79,10 +93,9 @@ Excercises
 * Use arrays to implement linked lists. 
   * Append a node into a given list.
   * Insert a node after a given node. 
-  * Remove a node from a given stack.
+  * Remove a node from a given list.
   * Empty a list. 
 * Use pointers or references to implement linked lists.
-* Implement undo/redo functionality(or back/forward navigation in explorer). 
 * Revert a given linked list(unless otherwise specified, linked lists refer to sigly linked list of number)
 * Find $n$'th node from the end of a given linked list. 
 * Find the middle node of a given linked list. 
@@ -113,12 +126,15 @@ Excercises
   * Peak the top node of a given stack.
   * Empty a given stack. 
 * Use pointers or references to implement stacks. Including the operations above. 
+* Implement undo/redo functionality(or back/forward navigation in explorer). 
 * Given a sequence of push operations and a sequence of pop operations, tell whether it can be valid.
 * Implement a queue supporting `push()`. `pop()` and `getMin()`. 
 * Without recursion, use backtracking to solve [n queens problem](https://en.wikipedia.org/wiki/N_queens_problem). 
 * Based on the expression evaluator above, add $\times$ and $\div$ support. 
 * Based on the expression evaluator above, add brackets support. 
+
 ---
+
 ### Queue
 
 ---
@@ -169,13 +185,13 @@ Excercises
   * Adjacency matrix
   * Adjacency list
 * Explain the possible meaning of powers of adjacency matrices.
+* Generate minimum spanning tree of a given graph.
+  * Prim, Krustal, etc.
 * Calculate shortest paths from a source node $s$ to a target node $t$ in a given graph.
   * Hint: DFS, BFS, Bidirectional BFS, Dijkstra, Bellman-ford, etc.
   * Compare their complexity and tell what kind of graphs fit them best. 
 * Calculate shortest paths from a source node $s$ to every other node in a given graph.
 * Calculate shortest paths from every node to every other node in a given graph.
   * Floyd-Warshall
-* Generate minimum spanning tree of a given graph.
-  * Prim, Krustal, etc.
 
 ---
