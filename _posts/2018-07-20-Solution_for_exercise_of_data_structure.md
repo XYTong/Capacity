@@ -614,7 +614,8 @@ besides we wil use a function to conected each 2 "adjacent" Nodes. It has tow Pa
 array pointer and size of array: 
 
 ```cpp
-#include <iostream>                                                                                                               #include <string>
+#include <iostream>
+#include <string>
 #include <stdlib.h>
 using namespace std;
 
@@ -639,26 +640,28 @@ int main() {
     int n;
     cin >> n;
     for (int k = 0; k < n; k++) {
-        cin >> arr[i]
+        cin >> arr[k];
     }
-    node * head = NULL;
+    node * head;
     node * tail = NULL;
     for (int i = 0; i < n; i++) {
-        if (!head) {
+        if (i == 0) {
             head = createnode(arr[i]);
-            tail = head;
+            head->next = createnode(arr[i]);
+            tail = head->next;
         } else {
             node * newnode = createnode(arr[i]);
             tail->next = newnode;
             tail = tail->next;
         }
     }
-    node * element = head;
+    node * element = head->next;
     while (element != NULL) {
         cout << element->data << " ";
         element = element->next;
     }
     cout << endl;
+}
 ```
 pointer function `node * createnode(int val)` return a new node with a empty pointer to NULL 
 in the main func we use loop to create new node meanwhile we keep the head value and tail value to the next
@@ -873,7 +876,32 @@ int main() {
     delete asswecan;
     return 0;
 }
-```
+``` 
+
++ Reverse a given linked list(unless otherwise specified, linked lists refer to sigly linked list of number) 
+
+we can write directly with out doubt: 
+
+```cpp 
+node* Reverse (node* head) {
+    if (head == NULL || head->next == NULL) return head;
+    else {
+        node *cur = head->next,
+             *pre = NULL,
+             *next = NULL;
+        while (cur != NULL) {
+            next = cur->next;
+            cur->next = pre;
+            pre = cur;
+            cur = next;
+        }
+        head->next = pre;
+        return head;
+    }
+}
+``` 
+
++ Find *n* th node from the end of a given linked list.
 
 
 
