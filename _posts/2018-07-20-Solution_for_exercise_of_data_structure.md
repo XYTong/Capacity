@@ -3,8 +3,7 @@ layout: post
 title: me,data structure, exercise, solution
 ---
 # Part I 
-
-## {{ page.title }} 
+ 
 
 **thanks for the help by [simonmysun](https://github.com/simonmysun) for the Collectionin in learning and practicing of data structure** 
  
@@ -591,9 +590,7 @@ int main() {
     cout << str << "=" << Res << endl;
 }
 ``` 
-{{ page.date | date_to_string }} 
 
-## {{ page.title }} 
 
 ## Basic data structures 
 
@@ -880,5 +877,3 @@ int main() {
 
 
 
-
-{{ page.date | date_to_string }}
