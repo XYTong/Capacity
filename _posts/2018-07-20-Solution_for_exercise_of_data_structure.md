@@ -901,7 +901,33 @@ node* Reverse (node* head) {
 }
 ``` 
 
-+ Find *n* th node from the end of a given linked list.
++ Find *n* th node from the end of a given linked list. 
+
+`cout << tail->data << endl;` 
+
++ Find the middle node of a given linked list. 
+
+```cpp 
+node * element = head->next; 
+for (int i = 0; i < n; i++) {
+    if (n % 2 != 0) {
+        if (i == (n-1)/2) {
+            cout << element->data << endl;
+            break;
+        }
+    } else {
+        if (i == n/2 - 1) {
+            cout << element->data << endl;
+            cout << element->next->data << endl;
+            break;
+        }
+    }
+    element = element->next;
+}
+``` 
+
++ Sort a given linked list. 
+
 
 
 
