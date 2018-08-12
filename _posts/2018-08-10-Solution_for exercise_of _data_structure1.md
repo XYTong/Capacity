@@ -415,6 +415,7 @@ for (int i = 0; i < n; i++) {
    `1 2 6 4 5 3 7 8 9 10` 
 
    + **Implement *bubble sort* on linked lists.** 
+
    classic bubble sort for array in *c++* [WiKi](https://en.wikipedia.org/wiki/Bubble_sort): 
 
    ```cpp 
@@ -446,8 +447,8 @@ for (int i = 0; i < n; i++) {
    ``` 
 
    base on this code we can implement bubble sort for **Linked List**. 
-   first build a module for swap tow adjacent elements of the linked list. this function return the element which was 
-   beyond the another and after swap going to be behind it. and `i` is the swap position for `i` and `i+1`, `n` is the 
+   first build a module for swap two adjacent elements of the linked list. this function returns the element which was 
+   beyond the another and after swapping goes to be behind it. and `i` is the swap position for `i` and `i+1`, `n` is the 
    length of linked list.  
    ```cpp 
     node * swap_node_adjacent(node * head, int i, int n) {
@@ -488,6 +489,6 @@ for (int i = 0; i < n; i++) {
     }                                                                                                                                                                       
    ``` 
 
-   
+
 
    
