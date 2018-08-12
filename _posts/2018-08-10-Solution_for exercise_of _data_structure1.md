@@ -372,6 +372,122 @@ for (int i = 0; i < n; i++) {
    with `find_element` we can easily find the  tow previous and next nodes of *i* and *j* nodes. just named 
    as prenode_i, prenode_j and nextnode_i, nextnode_j. then we can reset `prenode_i->next = node_j`, `node_j->next = nextnode_i` 
    `prenode_j = node_i`, `node_i->next = nextnode_j` . 
+
+   ```cpp
+   void swap_node(node * element, int i, int j) {
+        int k = 0;
+        node *prenode_i;
+        node *node_i;
+        node *nextnode_i;
+        node *prenode_j;
+        node *node_j;
+        node *nextnode_j;
+        while (element != NULL) {
+            if (k == i-1) {
+                prenode_i = element;
+            }
+            else if (k == i) {
+                node_i = element;
+            }
+            else if (k == i + 1){
+                nextnode_i = element;
+            }
+            else if (k == j-1) {
+                prenode_j = element;
+            }
+            else if (k == j) {
+                node_j = element;
+            }
+            else if (k == j + 1) {
+                nextnode_j = element;
+            }
+            element = element->next;
+            k++;
+        }
+        prenode_i->next = node_j;
+        node_j->next = nextnode_i;
+        prenode_j->next = node_i;
+        node_i->next = nextnode_j;
+   } 
+   ``` 
    for example 10 nodes linked list and swap 3 and 6, following is the result: 
-   `1 2 3 4 5 6 7 8 9 10`
+   `1 2 3 4 5 6 7 8 9 10` 
    `1 2 6 4 5 3 7 8 9 10` 
+
+   + **Implement *bubble sort* on linked lists.** 
+   classic bubble sort for array in *c++* [WiKi](https://en.wikipedia.org/wiki/Bubble_sort): 
+
+   ```cpp 
+    #include <iostream>
+    #include <algorithm>
+    using namespace std;
+    template<typename T> //整數或浮點數皆可使用,若要使用物件(class)時必須設定大於(>)的運算子功能
+    void bubble_sort(T arr[], int len) {
+        int i, j;
+        for (i = 0; i < len - 1; i++)
+            for (j = 0; j < len - 1 - i; j++)
+                if (arr[j] > arr[j + 1])
+                    swap(arr[j], arr[j + 1]);
+    }
+    int main() {
+        int arr[] = { 61, 17, 29, 22, 34, 60, 72, 21, 50, 1, 62 };
+        int len = (int) sizeof(arr) / sizeof(*arr);
+        bubble_sort(arr, len);
+        for (int i = 0; i < len; i++)
+            cout << arr[i] << ' ';
+        cout << endl;
+        float arrf[] = { 17.5, 19.1, 0.6, 1.9, 10.5, 12.4, 3.8, 19.7, 1.5, 25.4, 28.6, 4.4, 23.8, 5.4 };
+        len = (int) sizeof(arrf) / sizeof(*arrf);
+        bubble_sort(arrf, len);
+        for (int i = 0; i < len; i++)
+            cout << arrf[i] << ' ';
+        return 0;
+    }
+   ``` 
+
+   base on this code we can implement bubble sort for **Linked List**. 
+   first build a module for swap tow adjacent elements of the linked list. this function return the element which was 
+   beyond the another and after swap going to be behind it. and `i` is the swap position for `i` and `i+1`, `n` is the 
+   length of linked list.  
+   ```cpp 
+    node * swap_node_adjacent(node * head, int i, int n) {
+        int k = 0;
+        node * new_element = head->next;
+        node *prenode_i = NULL;
+        node *node_i = NULL;
+        node *node_j = NULL;
+        node *nextnode_j = NULL;
+        while (new_element) {
+            if (k == i-1) prenode_i = new_element;
+            else if (k == i) node_i = new_element;
+            else if (k == i + 1) node_j = new_element;
+            else if (k == i + 2) nextnode_j = new_element;
+            if (i == 0) prenode_i = head;
+            new_element = new_element->next;
+            k++;
+        }
+        if (prenode_i) prenode_i->next = node_j;
+        node_j->next = node_i;
+        node_i->next = nextnode_j;
+        return node_i;
+    }
+   ``` 
+   for example `swap_node_adjacent(head, 0, 5)`, `5 4 3 2 1` turns to `4 5 3 2 1` and return `5`. 
+   then we implement the bubble sort: 
+   ```cpp
+    void bubble_sort_linked_list(node * head, int n) {
+        int i, j;
+        for (i = 0; i < n-1; i++) {
+            node * element = head->next;
+            for (j = 0; j < n-1-i; j++) {
+                if ((element->data) > ((element->next)->data)) {
+                    element = swap_node_adjacent(head, j, n);
+                } else element = element->next;
+            }
+        }
+    }                                                                                                                                                                       
+   ``` 
+
+   
+
+   
