@@ -489,6 +489,50 @@ for (int i = 0; i < n; i++) {
     }                                                                                                                                                                       
    ``` 
 
+   + **Given an ordered linked list, insert a new number without destroying its order.** 
+
+   ```cpp
+    node * finde_node(node * head, int k, int n) {
+        node * element = head->next;
+        for (int j = 0; j < n && element != NULL; j++) {
+            if (j == k) return element;
+            element = element->next;
+        }
+    }
+
+    void insert_order(node * head,  int key_value, int n) {
+        node * new_element = new node;
+        new_element->data = key_value;
+        node * m_node = new node;
+        for (int i = 0; i < n; i++) {
+            m_node = finde_node(head, i, n);
+            if (i == 0 && key_value < m_node->data) {
+                head->next = new_element;
+                new_element->next = m_node;
+                break;
+            } else if (i == n-1 && key_value > m_node->data) {
+                m_node->next = new_element;
+                new_element->next = NULL;
+                break;
+            } else {
+                if (m_node->data <= key_value && m_node->next->data >= key_value) {
+                    new_element->next = m_node->next;
+                    m_node->next = new_element;
+                    break;
+                }
+            }
+        }
+        m_node = NULL;
+        new_element = NULL;
+        delete new_element;
+        delete m_node;
+    }
+   ``` 
+   following is the result of an example: 
+
+   `1 2 9 10 11` -> `1 2 6 9 10 11` 
+   
+
 
 
    
