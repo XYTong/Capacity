@@ -1,6 +1,6 @@
 ---
 layout: post
-title: me,data structure, exercise, solution_1
+title: me,data structure, exercise, solution-next
 ---
 # Part I 
  
@@ -531,6 +531,119 @@ for (int i = 0; i < n; i++) {
    following is the result of an example: 
 
    `1 2 9 10 11` -> `1 2 6 9 10 11` 
+
+   + **Implement insertion sort on linked lists.** 
+   fisrt of all we build a **double linked list**. struct `node` contains 3 elements: **value** of single node, pointer to 
+   **next node**, pointer to **previous node**. 
+
+   ```cpp 
+    struct node {
+        int data;
+        struct node * pre;
+        struct node * next;
+    };
+   ```
+   with function `create_node(int val)` to create every node in loop. 
+
+   ```cpp 
+    node* create_node(int val) {
+        node * newnode = (node*)malloc(sizeof(node));
+        if (newnode == NULL) {
+            cout << "out of memory !" << endl;
+            return NULL;
+        } else {
+            newnode->data = val;
+            newnode->next = NULL;
+            newnode->pre = NULL;
+            return newnode;
+        }
+    }
+   ``` 
+
+   `node * insert_double_linked_list(node * head, node * tail, int val)` to connect current tail with new node and 
+   return new tail. 
+
+   ```cpp 
+    node * insert_double_linked_list(node * head, node * tail, int val) {                                                             node *newnode = create_node(val);
+        if (!tail) {
+            head->next = newnode;
+            newnode->pre = head;
+            tail = newnode;
+        }
+        else {
+            tail->next = newnode;
+            newnode->pre = tail;
+            tail = newnode;
+        }
+        return tail;
+    }
+   ``` 
+
+   based on **insert sort** for *array* [WiKi](https://en.wikipedia.org/wiki/Insertion_sort): 
+
+   ```cpp 
+    void insertion_sort(int arr[],int len){
+            for(int i=1;i<len;i++){
+                    int key=arr[i];
+                    int j;
+                    for(j=i-1;j>=0 && key<arr[j];j--)
+                            arr[j+1]=arr[j];
+                    arr[j+1]=key;
+            }
+    }
+   ``` 
+
+   we can easily implement insert sort for linked list: 
+
+   ```cpp 
+    void insertion_sort(node * head, int n) {
+        for (node * m_node = head->next; m_node != NULL; m_node = m_node->next) {
+            int key = m_node->data;
+            node * s_node;
+            for (s_node = m_node->pre; s_node != NULL && key < s_node->data; s_node = s_node->pre) {
+                s_node->next->data = s_node->data;
+            }
+            if (s_node) s_node->next->data = key;
+            else head->data = key;
+        }
+    }
+   ``` 
+
+   following is the left code: 
+
+   ```cpp 
+    int main() {
+        int arr[100];
+        int n;
+        cin >> n;
+        for (int i = 0; i < n; i++) cin >> arr[i];
+        node * tail;
+        node * head;
+        for (int i = 0; i < n; i++) {
+            if (i == 0) {
+                head = create_node(arr[i]);
+            } else tail = insert_double_linked_list(head, tail, arr[i]);
+        }
+        for (node * element = head; element != NULL; element = element->next) cout << element->data << " ";
+        cout << endl;
+        for (node * element = tail; element != NULL; element = element->pre) cout << element->data << " ";
+        cout << endl;
+        insertion_sort(head, n);
+        for (node * element = head; element != NULL; element = element->next) cout << element->data << " ";
+        cout << endl;
+    }
+   ``` 
+
+   here is the result: 
+   **input**: 
+   10
+   10 5 2 7 6 8 3 9 1 4 
+   
+   **output**:
+   10 5 2 7 6 8 3 9 1 4 
+   4 1 9 3 8 6 7 2 5 10 
+   1 2 3 4 5 6 7 8 9 10 
+
    
 
 
