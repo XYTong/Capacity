@@ -1,10 +1,10 @@
 ---
 layout: post
-title: me,data structure, exercise, solution-next
+title: Part I
 ---
-# Part I 
+# Basic data structures
  
-## Basic data structures 
+## Abstract 
 
 **thanks for the help by [simonmysun](https://github.com/simonmysun) for the Collectionin in learning and practicing of data structure** 
  
@@ -13,9 +13,9 @@ the following comes the solutions and summary of [data structure](https://xytong
 
 the previous part **Data type** [click here](https://xytong.github.io/Capacity/2018/07/20/Solution_for_exercise_of_data_structure.html) 
 
-### Linked list 
+## Linked list 
 
-+ Use arrays to implement linked lists. 
+### + Use arrays to implement linked lists. 
 
 there are various ways to implement a linked list with using arrays. here i wrote tow different ways: 
 
@@ -156,7 +156,7 @@ int main() {
 
 ``` 
 
-+ **Implement undo/redo functionality(or back/forward navigation in explorer).** 
+### Implement undo/redo functionality(or back/forward navigation in explorer). 
 
 For some softwares, they generally offer the **Redo** and **Undo** Operations, like Action panel in Paint.NET, or UNDO/REDO in 
 *Word* , normally we just press CTRL-Z to implement it. 
@@ -297,7 +297,7 @@ int main() {
 }
 ``` 
 
-+ **Reverse a given linked list(unless otherwise specified, linked lists refer to sigly linked list of number)** 
+### Reverse a given linked list(unless otherwise specified, linked lists refer to sigly linked list of number) 
 
 we can write directly with out doubt: 
 
@@ -320,7 +320,7 @@ node* Reverse (node* head) {
 }
 ``` 
 
-+ **Find *n* th node from the end of a given linked list.** 
+### Find *n* th node from the end of a given linked list. 
 
 `cout << tail->data << endl;` 
 
@@ -345,7 +345,9 @@ for (int i = 0; i < n; i++) {
 }
 ``` 
 
-+ **Sort a given linked list.** 
+### Sort a given linked list. 
+
++ If you get stucked on this problem, you may also try the following problems first.
 
    + Find and delete a specified node in a given linked list.
     
@@ -596,7 +598,7 @@ for (int i = 0; i < n; i++) {
    we can easily implement insert sort for linked list: 
 
    ```cpp 
-    void insertion_sort(node * head, int n) {
+    void insertion_sort(node * head) {
         for (node * m_node = head->next; m_node != NULL; m_node = m_node->next) {
             int key = m_node->data;
             node * s_node;
@@ -640,13 +642,88 @@ for (int i = 0; i < n; i++) {
 
    10 5 2 7 6 8 3 9 1 4 
 
-   **output**:
+   **output**: 
+
    10 5 2 7 6 8 3 9 1 4 
 
    4 1 9 3 8 6 7 2 5 10 
 
    1 2 3 4 5 6 7 8 9 10 
+
+   + **Given a linked list, divide them into two even halves.** 
+
+   + **Given two ordered linked lists, merge them into one ordered linked list.** 
+
+   + **Implement merge sort on linked lists.** 
+
+    these three we can solve in a row. 
+
+    if we wanna implement **merge sort**, first we need divide linked list into **single node** and store them into *node array* 
     
+    '''cpp 
+    void divide_node(node * head, int n, node * A[]) {
+        int i = 0;
+        for (node * element = head; element != NULL; element = element->next) {
+            if (element->pre) element->pre->next = NULL;
+            element->pre = NULL;
+            A[i] = element;
+            i++;
+        }
+    }
+    ''' 
+
+    and `node * A[n]` . 
+
+    then we build a function `node * merge_node(node* head_1, node* head_2)` which based on **recursion**. input **two**  
+    heads of linked lists and output one head of linked lsit which is merged by these two linked list. 
+
+    ```cpp 
+    node * merge_node(node * head_1, node * head_2) {
+        node * head = NULL;
+        if (!head_1) return head_2;
+        if (!head_2) return head_1;
+        if (head_1->data < head_2->data) {
+            head = head_1;
+            head->next = merge_node(head_1->next, head_2);
+        }
+        else {
+            head = head_2;
+            head->next = merge_node(head_1, head_2->next);
+        }
+        return head;
+    }
+    ``` 
+
+    finally we implement a **merge sort** , but we must consider when n is not a power number of 2, so when it comes to not even 
+    number, we need set the second linked list which is going to be merged to **NULL**, 
+
+    ```cpp 
+    node * merge_sort(node* A[], int n) {
+        int start1;
+        for (int seg = 1; seg < n; seg +=seg) {
+            cout << "loop1" << endl;
+            for (int start = 0; start < n; start += seg+ seg) {
+                cout << "loop2" << endl;
+                int low = start;
+                int mid = start + seg;
+                start1 = low;
+                int start2 = mid;
+                cout << "before" << endl;
+                if (seg == 1 && start == 2) cout << start1 << " " << start2 << endl;
+                if (mid < n) A[start1] = merge_node(A[start1], A[start2]);
+                else A[start1] = merge_node(A[start1], NULL);
+                cout << "after" << endl;
+            }
+        }
+        return A[start1];
+    }
+    ``` 
+
+    + **Given a linked list, divide them into two halves(might not be even) and meanwhile let each number in the first half be greater than all numbers in the second half.** 
+
+    unfinished->... 
+    
+
 
    
 
