@@ -15,7 +15,7 @@ the previous part **Data type** [click here](https://xytong.github.io/Capacity/2
 
 ## Linked list 
 
-### + Use arrays to implement linked lists. 
+### Use arrays to implement linked lists. 
 
 there are various ways to implement a linked list with using arrays. here i wrote tow different ways: 
 
@@ -416,6 +416,7 @@ for (int i = 0; i < n; i++) {
    `1 2 3 4 5 6 7 8 9 10` 
    `1 2 6 4 5 3 7 8 9 10` 
 
+
    + **Implement *bubble sort* on linked lists.** 
 
    classic bubble sort for array in *c++* [WiKi](https://en.wikipedia.org/wiki/Bubble_sort): 
@@ -491,6 +492,7 @@ for (int i = 0; i < n; i++) {
     }                                                                                                                                                                       
    ``` 
 
+
    + **Given an ordered linked list, insert a new number without destroying its order.** 
 
    ```cpp
@@ -533,6 +535,8 @@ for (int i = 0; i < n; i++) {
    following is the result of an example: 
 
    `1 2 9 10 11` -> `1 2 6 9 10 11` 
+
+
 
    + **Implement insertion sort on linked lists.** 
    fisrt of all we build a **double linked list**. struct `node` contains 3 elements: **value** of single node, pointer to 
@@ -642,7 +646,8 @@ for (int i = 0; i < n; i++) {
 
    10 5 2 7 6 8 3 9 1 4 
 
-   **output**: 
+   **output**:  
+
 
    10 5 2 7 6 8 3 9 1 4 
 
@@ -660,7 +665,7 @@ for (int i = 0; i < n; i++) {
 
     if we wanna implement **merge sort**, first we need divide linked list into **single node** and store them into *node array* 
     
-    '''cpp 
+    ```cpp 
     void divide_node(node * head, int n, node * A[]) {
         int i = 0;
         for (node * element = head; element != NULL; element = element->next) {
@@ -670,7 +675,7 @@ for (int i = 0; i < n; i++) {
             i++;
         }
     }
-    ''' 
+    ``` 
 
     and `node * A[n]` . 
 
@@ -722,7 +727,7 @@ for (int i = 0; i < n; i++) {
     + **Given a linked list, divide them into two halves(might not be even) and meanwhile let each number in the first half be greater than all numbers in the second half.** 
 
     unfinished->... 
-    
+
 
 
    
