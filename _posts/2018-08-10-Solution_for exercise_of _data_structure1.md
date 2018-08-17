@@ -706,18 +706,13 @@ for (int i = 0; i < n; i++) {
     node * merge_sort(node* A[], int n) {
         int start1;
         for (int seg = 1; seg < n; seg +=seg) {
-            cout << "loop1" << endl;
             for (int start = 0; start < n; start += seg+ seg) {
-                cout << "loop2" << endl;
                 int low = start;
                 int mid = start + seg;
                 start1 = low;
                 int start2 = mid;
-                cout << "before" << endl;
-                if (seg == 1 && start == 2) cout << start1 << " " << start2 << endl;
                 if (mid < n) A[start1] = merge_node(A[start1], A[start2]);
                 else A[start1] = merge_node(A[start1], NULL);
-                cout << "after" << endl;
             }
         }
         return A[start1];
