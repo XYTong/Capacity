@@ -721,6 +721,54 @@ for (int i = 0; i < n; i++) {
 
     + **Given a linked list, divide them into two halves(might not be even) and meanwhile let each number in the first half be greater than all numbers in the second half.** 
 
+    + **Implement quick sort on linked lists.** 
+
+    we can solve these two questions as a row. 
+
+    ```cpp
+    void quick_sort(node * head, node * tail, int h, int l) {
+        if (h < l) {
+            int p = h, q = l;
+            int x =  head->data;
+            node * i = head;
+            node * j = tail;
+            while (p < q) {
+                while (p < q && j->data >= x) {
+                    j = j->pre;
+                    q--;
+                }
+                if (p < q) {
+                    i->data = j->data;
+                    i = i->next;
+                    p++;
+                }
+                while (p < q && i->data < x) {
+                    i = i->next;
+                    p++;
+                }
+                if (p < q) {
+                    j->data = i->data;
+                    j = j->pre;
+                    q--;
+                }
+            }
+            j->data = x;
+            quick_sort(head, i->pre, h, p-1);
+            quick_sort(i->next, tail, p+1, l);
+        }
+    }
+    ``` 
+
+    *h* and *l* is the position of `head` and `tail`. 
+    the explaination i will write it later... 
+
+
+### Given a linked list(assume it is), tell whether there is a loop and find the entry of it. 
+
+
+
+
+
     unfinished->... 
 
 
