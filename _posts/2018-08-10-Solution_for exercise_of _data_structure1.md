@@ -634,7 +634,7 @@ for (int i = 0; i < n; i++) {
         cout << endl;
         for (node * element = tail; element != NULL; element = element->pre) cout << element->data << " ";
         cout << endl;
-        insertion_sort(head, n);
+        insertion_sort(head);
         for (node * element = head; element != NULL; element = element->next) cout << element->data << " ";
         cout << endl;
     }
@@ -663,21 +663,25 @@ for (int i = 0; i < n; i++) {
 
     these three we can solve in a row. 
 
-    if we wanna implement **merge sort**, first we need divide linked list into **single node** and store them into *node array* 
+    if we wanna implement **merge sort**, first we need divide linked list into **two halves**  
+    hence we use double pointer `node** head_1` and `node** head_1` to receive the two head of lists which was spilted 
     
     ```cpp 
-    void divide_node(node * head, int n, node * A[]) {
-        int i = 0;
-        for (node * element = head; element != NULL; element = element->next) {
-            if (element->pre) element->pre->next = NULL;
-            element->pre = NULL;
-            A[i] = element;
-            i++;
+    void divide_node(node * head, node** head_1, node** head_2) {
+        if (!head) return;
+        *head_1 = head;
+        node * slow = head;
+        node * fast = head->next;
+        while(fast) {
+            if (fast->next) fast = fast->next->next;
+            else break;
+            slow = slow->next;
         }
+        *head_2 = slow->next;
+        slow->next = NULL;
     }
     ``` 
 
-    and `node * A[n]` . 
 
     then we build a function `node * merge_node(node* head_1, node* head_2)` which based on **recursion**. input **two**  
     heads of linked lists and output one head of linked lsit which is merged by these two linked list. 
@@ -699,24 +703,22 @@ for (int i = 0; i < n; i++) {
     }
     ``` 
 
-    finally we implement a **merge sort** , but we must consider when n is not a power number of 2, so when it comes to not even 
-    number, we need set the second linked list which is going to be merged to **NULL**, 
+    finally we implement a **merge sort** , but we must consider that using recursion to spilt node as single and then merge 
+
+    every two adjacent sublists. 
 
     ```cpp 
-    node * merge_sort(node* A[], int n) {
-        int start1;
-        for (int seg = 1; seg < n; seg +=seg) {
-            for (int start = 0; start < n; start += seg+ seg) {
-                int low = start;
-                int mid = start + seg;
-                start1 = low;
-                int start2 = mid;
-                if (mid < n) A[start1] = merge_node(A[start1], A[start2]);
-                else A[start1] = merge_node(A[start1], NULL);
-            }
-        }
-        return A[start1];
-    }
+void merge_sort(node** head) {
+    node * head_1;
+    node * head_2;
+    node * p_head = *head;
+    if (!p_head || !p_head->next) return;
+    cout << "OK" << endl;
+    divide_node(p_head, &head_1, &head_2);
+    merge_sort(&head_1);
+    merge_sort(&head_2);
+    *head = merge_node(head_1, head_2);
+}
     ``` 
 
     + **Given a linked list, divide them into two halves(might not be even) and meanwhile let each number in the first half be greater than all numbers in the second half.** 
@@ -725,42 +727,57 @@ for (int i = 0; i < n; i++) {
 
     we can solve these two questions as a row. 
 
+    first we need a **swap** fucction to swap two nodes. 
+
     ```cpp
-    void quick_sort(node * head, node * tail, int h, int l) {
-        if (h < l) {
-            int p = h, q = l;
-            int x =  head->data;
-            node * i = head;
-            node * j = tail;
-            while (p < q) {
-                while (p < q && j->data >= x) {
-                    j = j->pre;
-                    q--;
-                }
-                if (p < q) {
-                    i->data = j->data;
-                    i = i->next;
-                    p++;
-                }
-                while (p < q && i->data < x) {
-                    i = i->next;
-                    p++;
-                }
-                if (p < q) {
-                    j->data = i->data;
-                    j = j->pre;
-                    q--;
-                }
-            }
-            j->data = x;
-            quick_sort(head, i->pre, h, p-1);
-            quick_sort(i->next, tail, p+1, l);
-        }
+    void swap_node(node* a, node* b) {
+        node * temp_a = new node;
+        node * temp_b = new node;
+        *temp_a = *a;
+        *temp_b = *b;
+        *a = *b;
+        a->pre = temp_a->pre;
+        a->next = temp_a->next;
+        *b = *temp_a;
+        b->pre = temp_b->pre;
+        b->next = temp_b->next;
+        delete temp_a;
+        delete temp_b;
     }
     ``` 
 
-    *h* and *l* is the position of `head` and `tail`. 
-    the explaination i will write it later... 
+    then we build a function `partion` to put the numbers lower than **pivot** to the left and the numbers greater than pivot 
+    to the right. 
+
+    ```cpp 
+    node* get_partion(node* head, node * end) {
+        int key = head->data;
+        node* p = head;
+        node* q = p->next;
+
+        while(q != end) {
+            if(q->data < key) {
+                p = p->next;
+                swap_node(p, q);
+            }
+            q = q->next;
+        }
+        swap_node(p, head);
+        return p;
+    }
+    ``` 
+
+    the main function for quick sort. Recur for the list before pivot and after the pivot element. 
+
+    ```cpp 
+    void quick_sort(node * head, node * end) {
+        if (head != end) {
+            node * partion = get_partion(head, end);
+            quick_sort(head, partion);
+            quick_sort(partion->next, end);
+        }
+    }
+    ```
 
 
 ### Given a linked list(assume it is), tell whether there is a loop and find the entry of it. 
