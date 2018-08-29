@@ -782,6 +782,30 @@ void merge_sort(node** head) {
 
 ### Given a linked list(assume it is), tell whether there is a loop and find the entry of it. 
 
+```cpp 
+#include <iostream>
+using namespace std;
+
+int main() {
+    node * slow = head->next;
+    node * fast = head->next->next;
+    while (fast) {
+        if (slow == fast) break;
+        slow = slow->next;
+        fast = fast->next->next;
+    }
+    node * p = slow;
+    node * new_element = head;
+    while(new_element == p) {
+        new_element = new_element->next;
+        p = p->next;
+    }
+    node * entry = p;
+}
+``` 
+
+
+
 
 
 
