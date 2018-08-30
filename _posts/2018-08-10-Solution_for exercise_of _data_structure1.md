@@ -805,8 +805,94 @@ int main() {
 ``` 
 
 
+### Given two linked list, tell whether and where they intersect each other. What if there can be loops? 
 
 
+```cpp 
+find_intersection_point(node * head1, node * head2) {
+    for (node * element1 = head1; element1 != NULL; element1 = element1->next)
+        for(node * element2 = head2; element2 != NULL; elemnt2 = element2->next)
+            if (element1 == element2) return element1;
+}
+``` 
+
+```cpp 
+node * find_intersection_point_loop(node * head1, node * head2) {
+    if (head1 == head2) return head1
+    node * fast = head1->next;
+    node * slow = head1;
+    node * tail;
+    while(fast != slow) {
+        if (fast->next || fast->next->next) {
+            fast->next = head;
+            tail = fast;
+        }
+        fast = fast->next->next;
+        slow = slow->next;
+    }
+    node * p = slow;
+    node * new_element = head1;
+    while(new_element == p) {
+        new_element = new_element->next;
+        p = p->next;
+    }
+    tail->next = NULL;
+    return p;
+}
+```
+
+## Stack 
+
+### Use array to implement stacks. 
+
++ Push a node into a given stack. 
+
++ Pop a node from a given stack. 
+
+```cpp 
+#include <iostream>
+#include <bits/stdc++.h>
+using namespace std;
+
+#define n 1000
+class Stack {
+    int top;
+public:
+    int a[n];
+    Stack() { top = -1;}
+    bool push(int x);
+    int pop();
+    bool empty();
+};
+
+bool Stack::push(int x) {
+    if (top >= n-1) {
+        cout << " Stack overflow" << endl;
+        return false;
+    } else {
+        a[++top] = x;
+        return true;
+    }
+}
+
+int Stack::pop() {
+    if (top < 0) {
+        cout << " Stack underflow" << endl;
+        return 0;
+    } else {
+        int x = a[top--];
+        return x;
+    }
+} 
+
+void Stack::empty() {
+    top = -1;
+}
+
+int Stack::peak_top() {
+    if (top >= 0) return a[top];
+}
+```
 
 
 
