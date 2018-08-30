@@ -849,6 +849,11 @@ node * find_intersection_point_loop(node * head1, node * head2) {
 
 + Pop a node from a given stack. 
 
++ Peak the top node of a given stack. 
+
++ Empty a given stack. 
+
+
 ```cpp 
 #include <iostream>
 #include <bits/stdc++.h>
