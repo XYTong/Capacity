@@ -947,6 +947,56 @@ int main() {
 }
 ``` 
 
+
+### Given a sequence of push operations and a sequence of pop operations, tell whether it can be valid. 
+
+see the first quiz... 
+
+### Implement a queue supporting push(). pop() and getMin(). 
+
+```cpp 
+class Stack {
+    int top;
+    int* MAX[n];
+    int m_top;
+public:
+    int a[n];
+    Stack() {
+        top = -1;
+        *MAX = INT_MIN;
+        m_top = 0;
+    }
+    bool push(int x);
+    int pop();
+    int peak_top();
+    void empty();
+}; 
+
+bool Stack::push(int x) {
+    if (top >= n-1) {
+        cout << " Stack overflow" << endl;
+        return false;
+    } else {
+        a[++top] = x;
+        if (x >= *MAX[m_top]) MAX[++m_top] = &a[top];
+        cout << "after push, MAX = " << *MAX[m_top] << endl;
+        return true;
+    }
+}
+
+int Stack::pop() {
+    if (top < 0) {
+        cout << " Stack underflow" << endl;
+        return 0;
+    } else {
+        if (&a[top] == MAX[m_top]) --m_top;
+        int x = a[top--];
+        cout << "after pop, MAX = " << *MAX[m_top] << endl;
+        return x;
+    }
+}
+```
+
     unfinished->... 
 
 
