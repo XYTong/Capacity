@@ -900,6 +900,52 @@ int Stack::peak_top() {
 ```
 
 
+### Use pointers or references to implement stacks. Including the operations above. 
+
+
+```cpp 
+#include <stdio.h>
+#include <stdlib.h>
+#include <limits.h>
+#include <iostream>
+using namespace std;
+
+struct StackNode {
+    int data;
+    struct StackNode* next;
+};
+
+void * push(StackNode** top, int value) {
+    StackNode * new_node = (StackNode*) malloc(sizeof(StackNode));
+    new_node->data = value;
+    new_node->next = *top;
+    *top = new_node;
+    cout << new_node->data << " pushed to stack" << endl;
+}
+
+int pop(StackNode** top) {
+    if(!*top) return -1;
+    StackNode* temp = *top;
+    *top = (*top)->next;
+    int popped = temp->data;
+    free(temp);
+    return popped;
+}
+
+int peak(StackNode* top) {
+    if (!top) return -1;
+    return top->data;
+}
+
+int main() {
+    StackNode* top = NULL;
+    push(&top, 1);
+    push(&top, 2);
+    push(&top, 3);
+    cout << "poped is " << pop(&top) << endl;
+    cout << "top is " << peak(top) << endl;
+}
+``` 
 
     unfinished->... 
 
