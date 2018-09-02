@@ -995,6 +995,84 @@ int Stack::pop() {
         return x;
     }
 }
+``` 
+
+
+
+### Without recursion, use backtracking to solve n queens problem. 
+
+```cpp 
+#include <iostream>
+#include <stdio.h>
+#include <stack>
+#define N 16
+using namespace std;
+
+class Operation {
+    int b[N][N];
+    int x;
+    int y;
+    stack <int> stack_alpha;
+public:
+    Operation() {
+        for (int i = 0; i < N; i++) for (int j = 0; j < N; j++) b[i][j] = 0;
+        x = 0;
+        y = 0;
+    }
+
+    bool execute() {
+        for (; x < N; x++) {
+            if (is_Safe()) {
+                stack_alpha.push(x);
+                b[x][y] = 1;
+                y++;
+                x = 0;
+                return true;
+            }
+        }
+        return false;
+   }
+
+    bool is_Safe() {
+        int i ,j;
+        for (i = 0; i < y; i++) if (b[x][i]) return false;
+        for (i = x, j = y; i >= 0 && j >= 0; --i, --j) if (b[i][j]) return false;
+        for (i = x, j = y; j >= 0 && i < N; ++i, --j) if (b[i][j]) return false;
+        return true;
+    }
+
+    bool put_into_stack() {
+        do {
+            if (execute()) { }
+            else {
+                y--;
+                x = stack_alpha.top();
+                stack_alpha.pop();
+                cout << "x = " << x << endl;
+                b[x++][y] = 0;
+            }
+            if (y >= N) return true;
+        } while (x >= 0 && y >= 0);
+        return false;
+    }
+
+    void print_solution() {
+        if (put_into_stack()) {
+            for (int i = 0; i < N; i++) {
+                for (int j = 0; j < N; j++) {
+                    cout << b[i][j] << " ";
+                }
+                cout << endl;
+            }
+        } else cout << "not exist" << endl;
+    }
+
+};
+
+int main() {
+    Operation _operation;
+    _operation.print_solution();
+}
 ```
 
     unfinished->... 
