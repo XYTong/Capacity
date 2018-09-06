@@ -322,27 +322,33 @@ node* Reverse (node* head) {
 
 ### Find *n* th node from the end of a given linked list. 
 
-`cout << tail->data << endl;` 
-
-+ Find the middle node of a given linked list. 
 
 ```cpp 
-node * element = head->next; 
-for (int i = 0; i < n; i++) {
-    if (n % 2 != 0) {
-        if (i == (n-1)/2) {
-            cout << element->data << endl;
-            break;
-        }
-    } else {
-        if (i == n/2 - 1) {
-            cout << element->data << endl;
-            cout << element->next->data << endl;
-            break;
-        }
+node * find_r_n_node(node * head， int n) {
+    node * slow = head;
+    node * fast = head->next;
+    for (int i = 0; i < n-1; i++) {
+        fast = fast->next;
     }
-    element = element->next;
+    while (fast != NULL && fast->next != NULL) {
+        fast = fast->next;
+        slow = slow->next;
+    }
+    return slow;
 }
+``` 
+
+
+### Find the middle node of a given linked list. 
+
+```cpp 
+node * slow = head;
+node * fast = head->next; 
+while(fast != NULL && fast->next != NULL) {
+    slow = slow->next;
+    fast = fast->next->next;
+}
+return slow;
 ``` 
 
 ### Sort a given linked list. 
@@ -352,19 +358,13 @@ for (int i = 0; i < n; i++) {
    + Find and delete a specified node in a given linked list.
     
    ```cpp 
-   find_element(node* head, int n, int* target) {
+   void find_element(node* head, int* target) {
         element = head;
-        int flag = 0;
-        for(int i = 0; i < n && element != NULL; i++){
-            element = element->next
-            if(*target == element->next ) {
-                flag = 100
-                return i;
-            }
-            if (flag == 0) {
-                return 0;
-            }
+        while (element != target) {
+            element = element->next;
         }
+        element->pre->next = element->next;
+        element->next->pre = element->pre;
    }
 
    ``` 
@@ -376,41 +376,20 @@ for (int i = 0; i < n; i++) {
    `prenode_j = node_i`, `node_i->next = nextnode_j` . 
 
    ```cpp
-   void swap_node(node * element, int i, int j) {
-        int k = 0;
-        node *prenode_i;
-        node *node_i;
-        node *nextnode_i;
-        node *prenode_j;
-        node *node_j;
-        node *nextnode_j;
-        while (element != NULL) {
-            if (k == i-1) {
-                prenode_i = element;
-            }
-            else if (k == i) {
-                node_i = element;
-            }
-            else if (k == i + 1){
-                nextnode_i = element;
-            }
-            else if (k == j-1) {
-                prenode_j = element;
-            }
-            else if (k == j) {
-                node_j = element;
-            }
-            else if (k == j + 1) {
-                nextnode_j = element;
-            }
-            element = element->next;
-            k++;
-        }
-        prenode_i->next = node_j;
-        node_j->next = nextnode_i;
-        prenode_j->next = node_i;
-        node_i->next = nextnode_j;
-   } 
+  void swap_node(node* a, node* b) {
+      node * temp_a = new node;
+      node * temp_b = new node;
+      *temp_a = *a;
+      *temp_b = *b;
+      *a = *b;
+      a->pre = temp_a->pre;
+      a->next = temp_a->next;
+      *b = *temp_a;
+      b->pre = temp_b->pre;
+      b->next = temp_b->next;
+      delete temp_a;
+      delete temp_b;
+  } 
    ``` 
    for example 10 nodes linked list and swap 3 and 6, following is the result: 
    `1 2 3 4 5 6 7 8 9 10` 
@@ -454,82 +433,43 @@ for (int i = 0; i < n; i++) {
    beyond the another and after swapping goes to be behind it. and `i` is the swap position for `i` and `i+1`, `n` is the 
    length of linked list.  
    ```cpp 
-    node * swap_node_adjacent(node * head, int i, int n) {
-        int k = 0;
-        node * new_element = head->next;
-        node *prenode_i = NULL;
-        node *node_i = NULL;
-        node *node_j = NULL;
-        node *nextnode_j = NULL;
-        while (new_element) {
-            if (k == i-1) prenode_i = new_element;
-            else if (k == i) node_i = new_element;
-            else if (k == i + 1) node_j = new_element;
-            else if (k == i + 2) nextnode_j = new_element;
-            if (i == 0) prenode_i = head;
-            new_element = new_element->next;
-            k++;
-        }
-        if (prenode_i) prenode_i->next = node_j;
-        node_j->next = node_i;
-        node_i->next = nextnode_j;
-        return node_i;
+    void bubble_sort(node * head) {
+        do {
+            node * element = head;
+            while (element != find_r_n_node(head, i)) {
+                if element->data > element->next->data;
+                swap_node(element, element->next);
+                element = element->next;
+                i++;
+            }
+        } while (head->next = find_r_n_node(head, i))
     }
    ``` 
-   for example `swap_node_adjacent(head, 0, 5)`, `5 4 3 2 1` turns to `4 5 3 2 1` and return `5`. 
-   then we implement the bubble sort: 
-   ```cpp
-    void bubble_sort_linked_list(node * head, int n) {
-        int i, j;
-        for (i = 0; i < n-1; i++) {
-            node * element = head->next;
-            for (j = 0; j < n-1-i; j++) {
-                if ((element->data) > ((element->next)->data)) {
-                    element = swap_node_adjacent(head, j, n);
-                } else element = element->next;
-            }
-        }
-    }                                                                                                                                                                       
-   ``` 
+
 
 
    + **Given an ordered linked list, insert a new number without destroying its order.** 
 
    ```cpp
-    node * finde_node(node * head, int k, int n) {
-        node * element = head->next;
-        for (int j = 0; j < n && element != NULL; j++) {
-            if (j == k) return element;
-            element = element->next;
+    void insert_ordered_ll(node ** head, node * new_e) {
+        if (new_e->data < head->data) {
+            new_e->next = *head;
+            *head = new_e;
+            return;
         }
-    }
-
-    void insert_order(node * head,  int key_value, int n) {
-        node * new_element = new node;
-        new_element->data = key_value;
-        node * m_node = new node;
-        for (int i = 0; i < n; i++) {
-            m_node = finde_node(head, i, n);
-            if (i == 0 && key_value < m_node->data) {
-                head->next = new_element;
-                new_element->next = m_node;
-                break;
-            } else if (i == n-1 && key_value > m_node->data) {
-                m_node->next = new_element;
-                new_element->next = NULL;
-                break;
-            } else {
-                if (m_node->data <= key_value && m_node->next->data >= key_value) {
-                    new_element->next = m_node->next;
-                    m_node->next = new_element;
-                    break;
+        for (node * element = *head; element != NULL; element = element->next) {
+            if (element->next == NULL) {
+                if (new->data >= element->data) {
+                    element->next = new;
+                    return;
                 }
             }
+            if (new_e->data >= element->data && new_e->data <= element->next->data) {
+                element->next = new_e;
+                new_e->next = element->next;
+                return;
+            }
         }
-        m_node = NULL;
-        new_element = NULL;
-        delete new_element;
-        delete m_node;
     }
    ``` 
    following is the result of an example: 
@@ -1169,7 +1109,122 @@ int main() {
 }
 ``` 
 
-for `N = 16` it has 14772512 solutions.
+for `N = 16` it has 14772512 solutions. 
+
+
+### Based on the expression evaluator above, add × and ÷ support. 
+
+### Based on the expression evaluator above, add brackets support. 
+
+
+```cpp 
+#include <iostream>
+#include <stack>
+#include <cstring>
+using namespace std;
+#define N 100
+class Caculator {
+    stack<double> num;
+    stack<char> op;
+    stack<double> pre;
+    char *s;
+    int k;
+    char c;
+    int end;
+public:
+    Caculator(char _s[]) {
+        op.push('\0');
+        s = new char[strlen(_s) + 1];
+        strcpy(s, _s);
+        k = 0;
+        end = 0;
+        c = s[k];
+    }
+
+    double transform_num() {
+        int flag = 0;
+        double x = 0.0;
+        double y = 0.1;
+        while (s[k] >= '0' && s[k] <= '9' || s[k] == '.') {
+            if (s[k] >= '0' && s[k] <= '9') {
+                if (flag == 0) x = x*10 + (s[k] - '0');
+                else {
+                    x = x + y*(s[k] - '0');
+                    y*=0.1;
+                }
+            }
+            else flag = 1;
+            k+=1;
+        }
+        return x;
+    }
+    int priority(char opx) {
+        int k;
+        switch (opx) {
+            case '*' : k = 2; break;
+            case '/' : k = 2; break;
+            case '+' : k = 1; break;
+            case '-' : k = 1; break;
+            case '(' : k = 0; break;
+            case ')' : k = 0; break;
+            default : k = -1; break;
+        }
+        return k;
+    }
+
+    void caculate() {
+        int x, y;
+        cout << s << endl;
+        int i = 0;
+        while (!end) {
+            if (c >= '0' && c <= '9' || c == '.') {
+                num.push(transform_num());
+            }
+            else if (c == '(' || priority(c) > priority(op.top())) {
+                op.push(c);
+                k++;
+            }
+            else if (c == ')' && op.top() == '(') {
+                op.pop();
+                k++;
+            }
+            else if (c == 'a') {
+                num.push(pre.top());
+                k+=3;
+            }
+            else if (c == '\0' && op.top() == '\0') end = 1;
+            else if (priority(c) <= priority(op.top())) {
+                x = num.top();
+                num.pop();
+                y = num.top();
+                num.pop();
+                c = op.top();
+                op.pop();
+                switch (c) {
+                    case '+' : y = x + y; break;
+                    case '-' : y = y - x; break;
+                    case '*' : y = x * y; break;
+                    case '/' : y = x / y; break;
+                }
+                num.push(y);
+            }
+            c = s[k];
+            i++;
+        }
+        cout << "ans = " << num.top() << endl;
+        pre.push(num.top());
+    }
+};
+
+int main() {
+    char _s[100];
+    cin >> _s;
+    Caculator caculator(_s);
+    caculator.caculate();
+    int exit = 0;
+};
+``` 
+
 
     unfinished->... 
 
