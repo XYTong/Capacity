@@ -1073,7 +1073,103 @@ int main() {
     Operation _operation;
     _operation.print_solution();
 }
-```
+``` 
+
+
+using ` class Stack` above. 
+
+```cpp 
+class Operation {
+    int b[N+1][N+1];
+    int x;
+    int y;
+    int diag_a[2*MAXN];
+    int diag_b[2*MAXN];
+    short pre[MAXN];
+    short next[MAXN];
+    Stack stack_alpha;
+    int s;
+    int s1;
+public:
+    Operation() {
+        for (int i = 1; i <= N; i++)
+            for (int j = 1; j <= N; j++) b[i][j] = 0;
+        memset(diag_a, 1, sizeof(diag_a));
+        memset(diag_b, 1, sizeof(diag_b));
+        for (int k = 1; k <= N; k++) {
+            pre[k] = k-1;
+            next[k] = k+1;
+        }
+        pre[N+1] = N;
+        next[0] = 1;
+        x = 0;
+        y = 1;
+        s = 0;
+        s1 = 0;
+    }
+
+    int put_into_stack() {
+        do {
+            if (stack_alpha.bot() <= N/2+1) {
+                if (y > N) {
+                    if (stack_alpha.bot() == N/2+1) s1++;
+                    else s++;
+                    y--;
+                    x = stack_alpha.peak_top();
+                    diag_a[x+y] = 1;
+                    diag_b[x-y+N] = 1;
+                    next[pre[x]] = x;
+                    pre[next[x]] = x;
+                    b[x][y] = 0;
+                    stack_alpha.pop();
+                    x = stack_alpha.peak_top();
+                    stack_alpha.pop();
+                    y--;
+                }
+                else {
+                    if (x != 0) {
+                        diag_a[x+y] = 1;
+                        diag_b[x-y+N] = 1;
+                        next[pre[x]] = x;
+                        pre[next[x]] = x;
+                    }
+                    x = next[x];
+                    while (x <= N) {
+                        if (diag_a[x+y] && diag_b[x-y+N]) break;
+                        x = next[x];
+                    }
+                    if (x > N) {
+                        y--;
+                        x = stack_alpha.peak_top();
+                        b[x][y] = 0;
+                        stack_alpha.pop();
+                        continue;
+                    }
+                    stack_alpha.push(x);
+                    diag_a[x+y] = 0;
+                    diag_b[x-y+N] = 0;
+                    next[pre[x]] = next[x];
+                    pre[next[x]] = pre[x];
+                    b[x][y] = 1;
+                    y++;
+                    x = 0;
+                }
+            }
+        } while (stack_alpha.bot() <= N/2+1);
+        if (n%2 == 0) s*=2;
+        else s = 2*s + s1;
+        return s;
+    }
+};
+
+int main() {
+    Operation _operation;
+    int c = _operation.put_into_stack();
+    cout << c << endl;
+}
+``` 
+
+for `N = 16` it has 14772512 solutions.
 
     unfinished->... 
 
