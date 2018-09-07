@@ -895,22 +895,37 @@ see the first quiz...
 ### Implement a queue supporting push(). pop() and getMin(). 
 
 ```cpp 
+#include <iostream>
+#include <bits/stdc++.h>
+#include <limits>
+#include <cstring>
+using namespace std;
+
+#define n 1000
 class Stack {
     int top;
-    int* MAX[n];
+    int* *MAX;
+    int* *MIN;
     int m_top;
-public:
+    int min_top;
     int a[n];
+    int MIN_INT = INT_MIN;
+    int MAX_INT = INT_MAX;
+public:
     Stack() {
         top = -1;
-        *MAX = INT_MIN;
         m_top = 0;
+        min_top = 0;
+        MAX = new int* [n];
+        MIN = new int* [n];
+        *MAX = &MIN_INT;
+        *MIN = &MAX_INT;
     }
     bool push(int x);
     int pop();
     int peak_top();
     void empty();
-}; 
+};
 
 bool Stack::push(int x) {
     if (top >= n-1) {
@@ -919,7 +934,8 @@ bool Stack::push(int x) {
     } else {
         a[++top] = x;
         if (x >= *MAX[m_top]) MAX[++m_top] = &a[top];
-        cout << "after push, MAX = " << *MAX[m_top] << endl;
+        if (x <= *MIN[min_top]) MIN[++min_top] = &a[top];
+        cout << "after push, MAX = " << *MAX[m_top] << " MIN = " << *MIN[min_top] << endl;
         return true;
     }
 }
@@ -930,12 +946,53 @@ int Stack::pop() {
         return 0;
     } else {
         if (&a[top] == MAX[m_top]) --m_top;
+        if (&a[top] == MIN[min_top]) --min_top;
         int x = a[top--];
-        cout << "after pop, MAX = " << *MAX[m_top] << endl;
+        cout << "after pop, MAX = " << *MAX[m_top] << " MIN = " << *MIN[min_top] << endl;
         return x;
     }
 }
+
+void Stack::empty() {
+    top = -1;
+}
+
+int Stack::peak_top() {
+    if (top >= 0) return a[top];
+}
+
+int main() {
+    Stack stack1;
+    stack1.push(2);
+    stack1.push(5);
+    stack1.push(3);
+    stack1.push(6);
+    stack1.push(1);
+    stack1.push(9);
+    cout << stack1.peak_top() << endl;
+    cout << stack1.pop() << endl;
+    stack1.empty();
+}
 ``` 
+
+after push, MAX = 2 MIN = 2 
+
+after push, MAX = 5 MIN = 2 
+
+after push, MAX = 5 MIN = 2 
+
+after push, MAX = 6 MIN = 2 
+
+after push, MAX = 6 MIN = 1 
+
+after push, MAX = 9 MIN = 1 
+
+9 
+
+after pop, MAX = 6 MIN = 1 
+
+9 
+
 
 
 
@@ -1225,6 +1282,69 @@ int main() {
 };
 ``` 
 
+
+## Queue 
+
+###Use arrays to implement queue.
++ Enqueue a node into a given queue. 
+
++ Dequeue a node from a given queue. 
+
++ Empty a queue. 
+
+```cpp 
+#include <stdio.h>
+#include <iostream>
+#include <limits.h>
+
+struct Queue {
+    int front;
+    int rear;
+    int size;
+    unsigned capacity;
+    int* a;
+};
+
+Queue * create_queue(unsigned capacity) {
+    Queue * queue = (Queue*) malloc(sizeof(Queue));
+    queue->capacity = capacity;
+    queue->front = queue->size = 0;
+    queue->rear = capacity - 1;
+    queue->a = (int*) malloc(queue->capacity * sizeof(int));
+    return queue;
+}
+
+void enqueue(Queue * queue, int data) {
+    if (queue->size == queue->capacity) {
+        cout << "Queue overflow" << endl;
+        return;
+    }
+    queue->rear = (queue->rear+1)%queue->capacity;
+    queue->a[queue->rear] = data;
+    queue->size = queue->size + 1;
+    cout << "enqueued to queue " << data << endl;
+}
+
+int dequeue(Queue * queue) {
+    if (queue->size == 0) {
+        cout << "Queue underflow" << endl;
+        return;
+    }
+    int data = queue->a[queue->front];
+    queue->size = queue->size - 1;
+    return data;
+}
+
+int front(Queue * queue) {
+    return queue->a[queue->front];
+}
+
+int rear(Queue * queue) {
+    return queue->a[queue->rear];
+} 
+``` 
+
+### Use pointers or references to implement linked lists. 
 
     unfinished->... 
 
