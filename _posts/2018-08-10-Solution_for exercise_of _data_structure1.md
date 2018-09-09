@@ -156,146 +156,6 @@ int main() {
 
 ``` 
 
-### Implement undo/redo functionality(or back/forward navigation in explorer). 
-
-For some softwares, they generally offer the **Redo** and **Undo** Operations, like Action panel in Paint.NET, or UNDO/REDO in 
-*Word* , normally we just press CTRL-Z to implement it. 
-to implement the funtionality , directly thinking is, that we put the Command as a class into a Stack, which we can imagine it as 
-a class.
-abstract the Command or Operation as a class, which can use different Request parameter to initialize the class, in other word **Queue processing for Commands, recording the requests, execute Undo/Redo Operations.**, that's called **Command Pattern**. the 
-most advantages its is that, **Separating the call and implement**. 
-> The standard is to keep the Command objects in a stack to support multi level undo. In order to support redo, a second stack keeps all the commands you've Undone. So when you pop the undo stack to undo a command, you push the same command you popped into the redo stack. You do the same thing in reverse when you redo a command. You pop the redo stack and push the popped command back into the undo stack. 
-here is a **small**  example for implementing of undo/redo functionality: 
-
-first we build a command class `ICoomand` and its two subclass as Operator 1 and 2, here we used virtual function ([see more](https://github.com/simonmysun) about **virtual function**). Then we built a class `AssWeCan` for implementing of stack, whitch 
-contains **undo-stack** and **redo-stack** and a function `void RBQ(command)` to store the commands. `class FAQ` contains  
-end two outputs which can be called by two subclass of `ICommand`. otherwise, the two pointer functions (PopUndoCommand and 
-PopRedoCommand) were used to implement **undo/redo**, return the one which was poped from the top of **stack** and into anonther 
-stack. 
-for `int main()` function, we use while loop to implement multi commands and multi undo/redo. 
-[see more](https://github.com/simonmysun) deep dark fantasy. 
-
-here is the code by 'c++' :
-
-```cpp 
-#include <iostream>
-#include <stack>
-#include <stdio.h>
-using namespace std;
-
-class ICommand {
-public:
-    virtual void Execute() = 0;
-};
-
-class AssWeCan {
-public:
-    stack<ICommand *>undolist;
-    stack<ICommand *>redolist;
-    void RBQ(ICommand *command) {
-        if (command) {
-            undolist.push(command);
-            command->Execute();
-        }
-    }
-};
-
-class FAQ {
-public:
-    void deedar() {
-        cout << "deep \u2642 dark \u2642 fantasy \u2642." << endl;
-    }
-    void perform_artist() {
-        cout << "do u like \u2642 what \u2642 u \u2642 see." << endl;
-    }
-};
-
-class DeedarCommand : public ICommand {
-private:
-    FAQ *_fuck_u;
-public:
-    DeedarCommand(FAQ *fuck_u) {
-        _fuck_u = fuck_u;
-    }
-    void Execute() {
-        _fuck_u->deedar();
-    }
-};
-
-class PerformCommand : public ICommand {
-private:
-    FAQ *_fuck_u;
-public:
-    PerformCommand(FAQ *fuck_u) {
-        _fuck_u = fuck_u;
-    }
-    void Execute() {
-        _fuck_u->perform_artist();
-    }
-};
-
-ICommand * PopUndoCommand(AssWeCan* asswecan) {
-    ICommand *pcommand = NULL;
-    if (!asswecan->undolist.empty()) {
-        pcommand = asswecan->undolist.top();
-        asswecan->undolist.pop();
-    }
-    return pcommand;
-}
-
-ICommand * PopRedoCommand(AssWeCan* asswecan) {
-    ICommand * pcommand = NULL;
-    if (!asswecan->redolist.empty()) {
-        pcommand = asswecan->redolist.top();
-        asswecan->redolist.pop();
-    }
-    return pcommand;
-}
-
-int main() {
-    stack<ICommand *>undolist;
-    stack<ICommand *>redolist;
-    FAQ* fuck_u = new FAQ;
-    ICommand* ddf = new DeedarCommand(fuck_u); 
-    ICommand* pa = new PerformCommand(fuck_u);
-    AssWeCan* asswecan = new AssWeCan;
-    char ch;
-    cout << "Enter ur favourite w\u2642rd a)deedar b)perform artist: " << endl;
-    cin >> ch;
-    while (ch != 'q') {
-        if (ch == 'a') asswecan->RBQ(ddf);
-        else asswecan->RBQ(pa);
-        cout << "Enter ur favourito w\u2642rd a)deedar b)perform aritist (press q to quit): " << endl;
-        cin >> ch;
-    }
-    cout << asswecan->undolist.top() << endl;
-    asswecan->undolist.top()->Execute();
-    cout << "Press (u) to undo and (r) to redo( (q) for quit): " << endl;
-    char ch1;
-    cin >> ch1;
-    while(ch1 != 'q') {
-        if (ch1 == 'u' ) {
-            ICommand * pcommand = PopUndoCommand(asswecan);
-            cout << asswecan->undolist.top() <<endl;
-            asswecan->redolist.push(pcommand);
-            asswecan->undolist.top()->Execute();
-        }
-        else {
-            ICommand * pcommand = PopRedoCommand(asswecan);
-            asswecan->undolist.push(pcommand);
-            asswecan->undolist.top()->Execute();
-        }
-        cout << "Press (u) to undo and (r) to redo( (q) for quit): " << endl;
-        cin >> ch1;
-    }
-
-    delete fuck_u;
-    delete ddf;
-    delete pa;
-    delete asswecan;
-    return 0;
-}
-``` 
 
 ### Reverse a given linked list(unless otherwise specified, linked lists refer to sigly linked list of number) 
 
@@ -994,6 +854,149 @@ after pop, MAX = 6 MIN = 1
 9 
 
 
+### Implement undo/redo functionality(or back/forward navigation in explorer). 
+
+For some softwares, they generally offer the **Redo** and **Undo** Operations, like Action panel in Paint.NET, or UNDO/REDO in 
+*Word* , normally we just press CTRL-Z to implement it. 
+to implement the funtionality , directly thinking is, that we put the Command as a class into a Stack, which we can imagine it as 
+a class.
+abstract the Command or Operation as a class, which can use different Request parameter to initialize the class, in other word **Queue processing for Commands, recording the requests, execute Undo/Redo Operations.**, that's called **Command Pattern**. the 
+most advantages its is that, **Separating the call and implement**. 
+> The standard is to keep the Command objects in a stack to support multi level undo. In order to support redo, a second stack keeps all the commands you've Undone. So when you pop the undo stack to undo a command, you push the same command you popped into the redo stack. You do the same thing in reverse when you redo a command. You pop the redo stack and push the popped command back into the undo stack. 
+here is a **small**  example for implementing of undo/redo functionality: 
+
+first we build a command class `ICoomand` and its two subclass as Operator 1 and 2, here we used virtual function ([see more](https://github.com/simonmysun) about **virtual function**). Then we built a class `AssWeCan` for implementing of stack, whitch 
+contains **undo-stack** and **redo-stack** and a function `void RBQ(command)` to store the commands. `class FAQ` contains  
+end two outputs which can be called by two subclass of `ICommand`. otherwise, the two pointer functions (PopUndoCommand and 
+PopRedoCommand) were used to implement **undo/redo**, return the one which was poped from the top of **stack** and into anonther 
+stack. 
+for `int main()` function, we use while loop to implement multi commands and multi undo/redo. 
+[see more](https://github.com/simonmysun) deep dark fantasy. 
+
+here is the code by 'c++' :
+
+```cpp 
+#include <iostream>
+#include <stack>
+#include <stdio.h>
+using namespace std;
+
+class ICommand {
+public:
+    virtual void Execute() = 0;
+};
+
+class AssWeCan {
+public:
+    stack<ICommand *>undolist;
+    stack<ICommand *>redolist;
+    void RBQ(ICommand *command) {
+        if (command) {
+            undolist.push(command);
+            command->Execute();
+        }
+    }
+};
+
+class FAQ {
+public:
+    void deedar() {
+        cout << "deep \u2642 dark \u2642 fantasy \u2642." << endl;
+    }
+    void perform_artist() {
+        cout << "do u like \u2642 what \u2642 u \u2642 see." << endl;
+    }
+};
+
+class DeedarCommand : public ICommand {
+private:
+    FAQ *_fuck_u;
+public:
+    DeedarCommand(FAQ *fuck_u) {
+        _fuck_u = fuck_u;
+    }
+    void Execute() {
+        _fuck_u->deedar();
+    }
+};
+
+class PerformCommand : public ICommand {
+private:
+    FAQ *_fuck_u;
+public:
+    PerformCommand(FAQ *fuck_u) {
+        _fuck_u = fuck_u;
+    }
+    void Execute() {
+        _fuck_u->perform_artist();
+    }
+};
+
+ICommand * PopUndoCommand(AssWeCan* asswecan) {
+    ICommand *pcommand = NULL;
+    if (!asswecan->undolist.empty()) {
+        pcommand = asswecan->undolist.top();
+        asswecan->undolist.pop();
+    }
+    return pcommand;
+}
+
+ICommand * PopRedoCommand(AssWeCan* asswecan) {
+    ICommand * pcommand = NULL;
+    if (!asswecan->redolist.empty()) {
+        pcommand = asswecan->redolist.top();
+        asswecan->redolist.pop();
+    }
+    return pcommand;
+}
+
+int main() {
+    stack<ICommand *>undolist;
+    stack<ICommand *>redolist;
+    FAQ* fuck_u = new FAQ;
+    ICommand* ddf = new DeedarCommand(fuck_u); 
+    ICommand* pa = new PerformCommand(fuck_u);
+    AssWeCan* asswecan = new AssWeCan;
+    char ch;
+    cout << "Enter ur favourite w\u2642rd a)deedar b)perform artist: " << endl;
+    cin >> ch;
+    while (ch != 'q') {
+        if (ch == 'a') asswecan->RBQ(ddf);
+        else asswecan->RBQ(pa);
+        cout << "Enter ur favourito w\u2642rd a)deedar b)perform aritist (press q to quit): " << endl;
+        cin >> ch;
+    }
+    cout << asswecan->undolist.top() << endl;
+    asswecan->undolist.top()->Execute();
+    cout << "Press (u) to undo and (r) to redo( (q) for quit): " << endl;
+    char ch1;
+    cin >> ch1;
+    while(ch1 != 'q') {
+        if (ch1 == 'u' ) {
+            ICommand * pcommand = PopUndoCommand(asswecan);
+            cout << asswecan->undolist.top() <<endl;
+            asswecan->redolist.push(pcommand);
+            asswecan->undolist.top()->Execute();
+        }
+        else {
+            ICommand * pcommand = PopRedoCommand(asswecan);
+            asswecan->undolist.push(pcommand);
+            asswecan->undolist.top()->Execute();
+        }
+        cout << "Press (u) to undo and (r) to redo( (q) for quit): " << endl;
+        cin >> ch1;
+    }
+
+    delete fuck_u;
+    delete ddf;
+    delete pa;
+    delete asswecan;
+    return 0;
+}
+``` 
+
+
+
 
 
 ### Without recursion, use backtracking to solve n queens problem. 
@@ -1345,6 +1348,139 @@ int rear(Queue * queue) {
 ``` 
 
 ### Use pointers or references to implement linked lists. 
+
+```cpp 
+#include <stdio.h>
+#include <stdlib.h>
+#include <limits.h>
+#include <iostream>
+using namespace std;
+
+struct Queue {
+    int data;
+    struct Queue* next;
+};
+
+void * push(Queue** bot, int value) {
+    StackNode * new_node = (StackNode*) malloc(sizeof(StackNode));
+    new_node->data = value;
+    new_node->next = *bot;
+    *bot = new_node;
+    cout << new_node->data << " pushed to stack" << endl;
+}
+
+int pop(StackNode** bot) {
+    if(!*bot) return -1;
+    StackNode* temp = *bot;
+    *bot = (*bot)->next;
+    int popped = temp->data;
+    free(temp);
+    return popped;
+}
+
+int peak(StackNode* top) {
+    if (!top) return -1;
+    for (element = bot; element != NULL && element->next != NULL; element = element->next) {}
+    return element;
+} 
+``` 
+
+### Implement a circular buffer. // TODO: Better problem needed 
+
+
+### Implement a message queue. // TODO: Better problem needed 
+
+
+## Tree 
+
+### Explain binary tree, full binary tree, complete binary tree. 
+
+>In computer science, a binary tree is a tree data structure in which each node has at most two children, which are referred to as the left child and the right child. 
+
+>A full binary tree (sometimes referred to as a proper[15] or plane binary tree)[16][17] is a tree in which every node has either 0 or 2 children. 
+
+>In a complete binary tree every level, except possibly the last, is completely filled, and all nodes in the last level are as far left as possible. It can have between 1 and 2^h nodes at the last level h. 
+
+
+### Given the root node of a tree, print its pre-order traversal, in-order traversal, post-order traversal and level-order traversal. 
+
+```cpp 
+#include <iostream>                                                                                                                                                         using namespace std;
+
+struct BiNode {
+    int data;
+    struct BiNode *l_child, *r_child;
+}
+
+class BiTree {
+    BiNode * root;
+    int depth;
+public:
+    BiTree(int root_value) {
+        root->data = root_value;
+        depth = 0;
+    }
+
+    void Create_BiTree(BiNode* T);
+    void is_Empty(BiNode* T);
+    int BiTree_Depth(BiNode* T);
+    void pre_Order(BiNode* T);
+    void in_Order(BiNode* T);
+    void post_Order(BiNode* T);
+};
+
+void BiTree :: Create_BiTree(BiNode ** T) {
+    int value;
+    cin >> value;
+    if (value == Nil) * T = NULL;
+    else {
+        * T = (*BiNode) malloc(siz  eof(BiNode));
+        if(!*T) exit(Overflow);
+        (*T)->data = value;
+        Create_BiTree(&(*T)->l_child);
+        Create_BiTree(&(*T)->r_child);
+    }
+}
+
+bool BiNode :: is_Empty(BiNode* T) {
+    if(T) return false; 
+    else return true;
+}
+
+int BiNode :: BiTree_Depth(BiNode* T){
+    int i, j;
+    if (T == NULL) return 0;
+    if (T->l_child) i = BiTree_Depth(T->l_child);
+    else i = 0;
+    if (T->r_child) j = BiTree_Depth(T->r_child);
+    else j = 0;
+    return i>j? i+1:j+1;
+}
+
+void BiNode :: pre_Order(BiNode* T) {
+    if (T != NULL) {
+        cout << T->data << " ";
+        pre_Order(T->l_child);
+        pre_Order(T->r_child);
+    }
+}
+
+void BiNode :: in_Order(BiNode* T) {
+    if (T != NULL) {
+        in_Order(T->l_child);
+        cout << T->data << " ";
+        in_Order(BiNode* T);
+    }
+}
+
+void BiNode :: post_Order(BiNode* T) {
+    if (T! = NULL) {
+        post_Order(T->l_child);
+        post_Order(T->r_child);
+        cout << T->data << " ";
+    }
+}
+``` 
 
     unfinished->... 
 
