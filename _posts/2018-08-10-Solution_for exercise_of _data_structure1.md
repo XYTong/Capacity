@@ -1405,24 +1405,22 @@ int peak(StackNode* top) {
 ### Given the root node of a tree, print its pre-order traversal, in-order traversal, post-order traversal and level-order traversal. 
 
 ```cpp 
-#include <iostream>                                                                                                                                                         using namespace std;
+#include <iostream>
+#include <stdlib.h>
+using namespace std;
 
 struct BiNode {
     int data;
     struct BiNode *l_child, *r_child;
-}
+};
 
 class BiTree {
-    BiNode * root;
-    int depth;
 public:
-    BiTree(int root_value) {
+    void Create_Root(BiNode * root, int root_value) {
         root->data = root_value;
-        depth = 0;
     }
-
-    void Create_BiTree(BiNode* T);
-    void is_Empty(BiNode* T);
+    void Create_BiTree(BiNode ** T);
+    bool is_Empty(BiNode* T);
     int BiTree_Depth(BiNode* T);
     void pre_Order(BiNode* T);
     void in_Order(BiNode* T);
@@ -1431,23 +1429,26 @@ public:
 
 void BiTree :: Create_BiTree(BiNode ** T) {
     int value;
-    cin >> value;
-    if (value == Nil) * T = NULL;
+    cin >> (value);
+    if (!cin.good()) {
+        *T = NULL;
+        cin.clear();
+        cin.ignore();
+    }
     else {
-        * T = (*BiNode) malloc(siz  eof(BiNode));
-        if(!*T) exit(Overflow);
+        * T = (BiNode*) malloc(sizeof(BiNode));
         (*T)->data = value;
         Create_BiTree(&(*T)->l_child);
         Create_BiTree(&(*T)->r_child);
     }
 }
 
-bool BiNode :: is_Empty(BiNode* T) {
-    if(T) return false; 
+bool BiTree :: is_Empty(BiNode* T) {
+    if(T) return false;
     else return true;
 }
 
-int BiNode :: BiTree_Depth(BiNode* T){
+int BiTree :: BiTree_Depth(BiNode* T){
     int i, j;
     if (T == NULL) return 0;
     if (T->l_child) i = BiTree_Depth(T->l_child);
@@ -1457,7 +1458,7 @@ int BiNode :: BiTree_Depth(BiNode* T){
     return i>j? i+1:j+1;
 }
 
-void BiNode :: pre_Order(BiNode* T) {
+void BiTree :: pre_Order(BiNode* T) {
     if (T != NULL) {
         cout << T->data << " ";
         pre_Order(T->l_child);
@@ -1465,22 +1466,93 @@ void BiNode :: pre_Order(BiNode* T) {
     }
 }
 
-void BiNode :: in_Order(BiNode* T) {
+void BiTree :: in_Order(BiNode* T) {
     if (T != NULL) {
         in_Order(T->l_child);
         cout << T->data << " ";
-        in_Order(BiNode* T);
+        in_Order(T->r_child);
     }
 }
 
-void BiNode :: post_Order(BiNode* T) {
-    if (T! = NULL) {
+void BiTree :: post_Order(BiNode* T) {
+    if (T != NULL) {
         post_Order(T->l_child);
         post_Order(T->r_child);
         cout << T->data << " ";
     }
 }
-``` 
+
+int main() {
+    BiNode * root;
+    BiTree bitree;
+    //bitree.Create_Root(root, 1);
+    bitree.Create_BiTree(&root);
+    bitree.pre_Order(root);
+}
+```  
+
+   + **Same problem, without recursion.** 
+
+   ```cpp 
+    void BiTree :: nr_pre_Order(BiNode* T) {
+        stack<BiNode*>lr;
+        BiNode * element = T;
+        cout << element->data << " ";
+        do {
+            if (element->l_child != NULL) {
+                lr.push(element);
+                cout << element->l_child->data << " ";
+                element = element->l_child;
+            }
+            else {
+                if (element->r_child != NULL) cout << element->r_child->data << " ";
+                do {
+                    if (lr.empty()) return;
+                    element = lr.top()->r_child;
+                    lr.pop();
+                } while(element == NULL && !lr.empty());
+                if(element != NULL) {
+                    cout << element->data << " ";
+                }
+                else return;
+            }
+        } while (true);
+    }
+   ``` 
+
+
+### Given the post-order traversal and in-order traversal of a tree, print its pre-order traversal. 
+
+
+```cpp
+int BiTree :: find(int arr[], int start, int end, int value) {
+    int i;
+    for(i = start; i <= end; i++)
+        if (arr[i] == value) return i;
+}
+
+BiNode* BiTree :: reconstruction_i_p(int in[], int pre[], int in_start, int in_end) {
+    static int pre_i = 0;
+    if (in_start > in_end) return NULL;
+    BiNode* t_node = Create_BiNode(pre[pre_i++]);
+    if (in_start == in_end) return t_node;
+    int in_i = find(in, in_start, in_end, t_node->data);
+    t_node->l_child = reconstruction_i_p(in, pre, in_start, in_i-1);
+    t_node->r_child = reconstruction_i_p(in, pre, in_i+1, in_end);
+    return t_node;
+}
+
+BiNode* BiTree :: reconstruction_i_post(int in[], int post[], int in_start, int in_end) {
+    static int post_i = in_end;
+    if (in_start > in_end) return NULL;
+    BiNode* t_node = Create_BiNode(post[post_i--]);
+    if (in_start == in_end) return t_node;
+    int in_i = find(in, in_start, in_end, t_node->data);
+    t_node->r_child = reconstruction_i_post(in, post, in_i+1, in_end);
+    t_node->l_child = reconstruction_i_post(in, post, in_start, in_i-1);
+    return t_node;
+}
+```
 
     unfinished->... 
 
