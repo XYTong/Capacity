@@ -1552,7 +1552,66 @@ BiNode* BiTree :: reconstruction_i_post(int in[], int post[], int in_start, int 
     t_node->l_child = reconstruction_i_post(in, post, in_start, in_i-1);
     return t_node;
 }
-```
+``` 
+
+
+### Given a tree with a in-order traversal of which the data are in increasing order, i.e. BST, insert a new node while keeping this property. 
+
+   + Implement a sorting algorithm with it (tree sort). 
+
+```cpp 
+void BiTree :: insert_BiNode(BiNode* T, BiNode** last, int target) {
+    if (T != NULL) {
+        insert_BiNode(T->l_child, last, target);
+        if (flag == 1) return;
+        cout << T->data << endl;
+        if (target <= T->data) {
+            cout << target << " <= " << T->data << endl;
+            if ((*last)->r_child == NULL) {
+                BiNode* new_node = Create_BiNode(target);
+                (*last)->r_child = new_node;
+            } else {
+                BiNode* new_node = Create_BiNode(target);
+                T->l_child = new_node;
+            }
+            flag = 1;
+            return;
+        }
+        else cout << target << " > " << T->data << endl;
+        *last = T;
+        insert_BiNode(T->r_child, last, target);
+    }
+}
+``` 
+
+
+
+```cpp 
+BiNode* BiTree :: insert_BiNode(BiNode* T, int target) {
+    if (T == NULL) {
+        cout << "OK, root" << endl;
+        T = Create_BiNode(target);
+        return T;
+    }
+    if (target < T->data) T->l_child = insert_BiNode(T->l_child, target);
+    else T->r_child = insert_BiNode(T->r_child, target);
+    return T;
+}
+
+BiNode* BiTree :: insertion_sort(int d[], int n) {
+    BiNode* tree = NULL;
+    cout << "OK, start" << endl;
+    for (int i = 0; i < n; i++) tree = insert_BiNode(tree, d[i]);
+    return tree;
+}
+``` 
+
+### Given n, how many structurally unique BST’s (binary search trees) that store values 1…n? 
+
+we can use **Catalan Numbers** to solve this problem. 
+
+The **n**th **Catalan number** is given directly in terms of binomial coefficients by$$C_{n} = \frac{n+1}{1}\bigl( \begin{smallmatrix} 2n \\ n \end{smallmatrix} \bigr)$$ =
+ \frac{(2n)!}{(n+1)!n!} = \prod_{k=2}^{n} a_{i}\frac{n+k}{k}$$
 
     unfinished->... 
 
