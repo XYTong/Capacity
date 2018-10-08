@@ -1610,8 +1610,7 @@ BiNode* BiTree :: insertion_sort(int d[], int n) {
 
 we can use **Catalan Numbers** to solve this problem. 
 
-The **n**th **Catalan number** is given directly in terms of binomial coefficients by$$C_{n} = \frac{n+1}{1}\bigl( \begin{smallmatrix} 2n \\ n \end{smallmatrix} \bigr)$$ =
- \frac{(2n)!}{(n+1)!n!} = \prod_{k=2}^{n} a_{i}\frac{n+k}{k}$$
+The **n**th **Catalan number** is given directly in terms of binomial coefficients by$$C_{n} = \frac{n+1}{1}\bigl( \begin{smallmatrix} 2n \\ n \end{smallmatrix} \bigr) = \frac{(2n)!}{(n+1)!n!} = \prod_{k=2}^{n} a_{i}\frac{n+k}{k}$$
 
     unfinished->... 
 
