@@ -1628,9 +1628,10 @@ the worst case it behaves bad when BST degenerate to Single tree branch.
 
 absolutly. 
 
-one Node with index `i`, index of its left child and right child are$$2i+1, 2i+2$$ 
+one Node with index `i`, index of its left child$$2i+1$$ and right child$$2i+1$$ 
 
-parent node (if exist) is$$\frac{2}{i-1}$$ 
+parent node (if exist) is 
+$$\frac{2}{i-1}$$ 
 
 
 
