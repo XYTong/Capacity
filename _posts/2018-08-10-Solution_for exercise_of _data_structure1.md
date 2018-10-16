@@ -1610,7 +1610,29 @@ BiNode* BiTree :: insertion_sort(int d[], int n) {
 
 we can use **Catalan Numbers** to solve this problem. 
 
-The **n**th **Catalan number** is given directly in terms of binomial coefficients by$$C_{n} = \frac{n+1}{1}\bigl( \begin{smallmatrix} 2n \\ n \end{smallmatrix} \bigr) = \frac{(2n)!}{(n+1)!n!} = \prod_{k=2}^{n} a_{i}\frac{n+k}{k}$$
+The **n**th **Catalan number** is given directly in terms of binomial coefficients by$$C_{n} = \frac{n+1}{1}\bigl( \begin{smallmatrix} 2n \\ n \end{smallmatrix} \bigr) = \frac{(2n)!}{(n+1)!n!} = \prod_{k=2}^{n}\frac{n+k}{k}$$ 
+
+
+### Analyze the complexity of BST, tell in which situation it behaves bad. 
+
+best case, the height *h* equals to O(n), which means `complexity = O(logn)` 
+because the time complexity depends on height of BST. 
+
+the worst case it behaves bad when BST degenerate to Single tree branch. 
+
+`complexity = O(n)` 
+
+### Implement a binary heap. 
+
++ Consider a **complete binary tree**. Can it be properly stored in an array? How to get parent / child node of a given node? 
+
+absolutly. 
+
+one Node with index `i`, index of its left child and right child are$$2i+1, 2i+2$$ 
+
+parent node (if exist) is$$\frac{2}{i-1}$$ 
+
+
 
     unfinished->... 
 
