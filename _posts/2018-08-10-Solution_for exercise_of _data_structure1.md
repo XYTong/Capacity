@@ -1628,10 +1628,50 @@ the worst case it behaves bad when BST degenerate to Single tree branch.
 
 absolutly. 
 
-one Node with index `i`, index of its left child$$2i+1$$ and right child$$2i+1$$ 
+one Node with index `i`, index of its left child$$2i+1$$ and right child$$2i+2$$ 
 
 parent node (if exist) is 
 $$\frac{2}{i-1}$$ 
+
+
+### If every node of this tree either has no parent (it is the root! ) or the datum of its parent is larger than its, it is called a heap. Can you insert a new node, and keep its properties (complete binary tree, parent datum larger than children datum)? 
+
+```cpp 
+#include <iostream>
+using namespace std;
+#define N 1000;
+class BiHeap {
+    int end;
+    int bh[N];
+public:
+    BiHeap() {
+        end = 0;
+        cin >> bh[end];
+    }
+    int maxheap_insert() {
+        int data;
+        cin << data;
+        if (end == N) return 0;
+        bh[end] = data;
+        int c = end;
+        int p = (c-1)/2;
+        int temp = bh[c];
+        while(c > 0) {
+            if (bh[p] >= temp) break;
+            else {
+                bh[c] = bh[p];
+                c = p;
+                p = (p-1)/2;
+            }
+        }
+        bh[c] = temp;
+        end++;
+        return 1;
+    }
+}
+``` 
+
+
 
 
 
