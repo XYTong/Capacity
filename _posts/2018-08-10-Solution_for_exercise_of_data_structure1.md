@@ -1288,7 +1288,7 @@ int main() {
 
 ## Queue 
 
-###Use arrays to implement queue.
+### Use arrays to implement queue.
 + Enqueue a node into a given queue. 
 
 + Dequeue a node from a given queue. 
@@ -1671,6 +1671,28 @@ public:
 }
 ``` 
 
+
+### if the root node is removed, can you transform the rest nodes into a heap?
+
+```cpp 
+    void delete_root() {
+        bh[0] = bh[size-1];
+        size--;
+        int c = 0;
+        int l = 2*c + 1;
+        int tmp = bh[c];
+        while (l < size) {
+            if (l < size-1 && bh[l] < bh[l+1]) l++;
+            if (tmp >= bh[l]) break;
+            else {
+                bh[c] = bh[l];
+                c = l;
+                l = 2*l + 1;
+            }
+        }
+        bh[c] = tmp;
+    }
+``` 
 
 
 
