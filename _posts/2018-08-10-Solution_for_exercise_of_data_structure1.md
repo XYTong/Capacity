@@ -1634,7 +1634,7 @@ parent node (if exist) is
 $$\frac{2}{i-1}$$ 
 
 
-### If every node of this tree either has no parent (it is the root! ) or the datum of its parent is larger than its, it is called a heap. Can you insert a new node, and keep its properties (complete binary tree, parent datum larger than children datum)? 
++ If every node of this tree either has no parent (it is the root! ) or the datum of its parent is larger than its, it is called a heap. Can you insert a new node, and keep its properties (complete binary tree, parent datum larger than children datum)? 
 
 ```cpp 
 #include <iostream>
@@ -1672,7 +1672,7 @@ public:
 ``` 
 
 
-### if the root node is removed, can you transform the rest nodes into a heap?
++ if the root node is removed, can you transform the rest nodes into a heap?
 
 ```cpp 
     void delete_root() {
@@ -1694,6 +1694,38 @@ public:
     }
 ``` 
 
+
++ implement a sorting algorithm with it (heap sort). 
+
+```cpp 
+void max_heapify(int a[], int start, int end) {
+    int dad = start;
+    int son = 2*dad + 1;
+    while (son <= end) {
+        if (son <= end-1 && a[son] < a[son+1]) son++;
+        if (a[son] < a[dad]) return;
+        else {
+            swap(a[dad], a[son]);
+            dad = son;
+            son = dad*2 + 1;
+        }   
+    }   
+}
+``` 
+### Given a tree(no root node specified), print its diameter. 
+
+```cpp 
+int BiTree :: diameter(BiNode* T) {
+    if (T == NULL) return 0;
+    int l_depth = BiTree_Depth(T->l_child);
+    int r_depth = BiTree_Depth(T->r_child);
+    int l_diameter = diameter(T->l_child);
+    int r_diameter = diameter(T->r_child);
+    return max(1+l_depth+r_depth, max(l_diameter, r_diameter));
+}
+``` 
+
+### Given a set of string, find them in a text. 
 
 
 
