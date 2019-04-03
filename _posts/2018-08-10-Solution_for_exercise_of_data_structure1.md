@@ -1726,6 +1726,8 @@ int BiTree :: diameter(BiNode* T) {
 ``` 
 
 ### Given a set of string, find them in a text. 
+**Aho-Corasick Algorithm** : complexity: O(n+m+z) where *m* is the total length of words and 
+**z** is the total number occurrences of words in text. 
 
 
 
