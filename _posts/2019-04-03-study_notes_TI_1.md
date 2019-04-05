@@ -8,7 +8,7 @@ title: ich,Theoritische Informatik, NOTES
 
 **Definition 2.2** 
 
-$Durchschnittliche\ Laufzeit = \frac{\sum_{x Eingabe}Laufzeit(x)}{#Eingaben}$
+$ Durchschnittliche\ Laufzeit = \frac{\sum_{x Eingabe}Laufzeit(x)}{#Eingaben} $
 
 **Definition 3.1**  
 
@@ -24,9 +24,10 @@ $3.f = \Theta (g), wenn f = O(g) und g =O(f) gilt; \\
 "f\ und\ g\ sind\ von\ gleicher\ Größenordnung"$ 
 $4.f = o(g), wenn f(n)/g(n) Nullfolge ist; \\
 f\ wächst\ langsamer\ als\ g$ 
-$5.f = /omega(g),wenn g = o(f) gilt; \\
+$5.f = \omega(g),wenn g = o(f) gilt; \\
 "f\ wächst\ schneller\ als\ g"$ 
 
 **Definition 3.4**  $Eine\ Funktion f:\textbf{IN} \rightarrow \mathbb{R}_{0}^{+}$ 
 + $heißt\ polynomiell\ beschränkt,\ falls\ es\ ein\ Polynom\ p\ gibt\ mit f = O(p).$ 
-+ $wächst\ exponentiell, wenn\ es\ ein\ \varepsilon > 0 gibt\ mit f = \Omega (2^{n^{\varepsilon}}). \lbrack\ f\ wächst\  mindestens\ so\ schnell\ wie\ c \cdot 2^{n^{\varepsilon}} für\ eine\ Konstante\ c>0 \rbrack$ 
+
++ $wächst\ exponentiell, wenn\ es\ ein\ \varepsilon > 0\ gibt\ mit f = \Omega (2^{n^{\varepsilon}}). \lbrack\ f\ wächst\  mindestens\ so\ schnell\ wie\ c \cdot 2^{n^{\varepsilon}} für\ eine\ Konstante\ c>0 \rbrack$ 
