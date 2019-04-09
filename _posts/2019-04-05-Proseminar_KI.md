@@ -1,3 +1,7 @@
+---
+layout: post
+title: ich,Theoritische Informatik, NOTES
+--- 
 #Proseminar KI 
 ##Organization
 
