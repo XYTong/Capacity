@@ -15,7 +15,7 @@ the previous part **Data type** [click here](https://xytong.github.io/Capacity/2
 
 ## Linked list 
 
-### Use arrays to implement linked lists. 
+**Use arrays to implement linked lists.** 
 
 there are various ways to implement a linked list with using arrays. here i wrote tow different ways: 
 
@@ -157,7 +157,7 @@ int main() {
 ``` 
 
 
-### Reverse a given linked list(unless otherwise specified, linked lists refer to sigly linked list of number) 
+**Reverse a given linked list(unless otherwise specified, linked lists refer to sigly linked list of number)** 
 
 we can write directly with out doubt: 
 
@@ -180,7 +180,7 @@ node* Reverse (node* head) {
 }
 ``` 
 
-### Find *n* th node from the end of a given linked list. 
+**Find *n* th node from the end of a given linked list.** 
 
 
 ```cpp 
@@ -199,7 +199,7 @@ node * find_r_n_node(node * head， int n) {
 ``` 
 
 
-### Find the middle node of a given linked list. 
+**Find the middle node of a given linked list.** 
 
 ```cpp 
 node * slow = head;
@@ -210,8 +210,9 @@ while(fast != NULL && fast->next != NULL) {
 }
 return slow;
 ``` 
-
-### Sort a given linked list. 
+ 
+ 
+**Sort a given linked list.** 
 
 + If you get stucked on this problem, you may also try the following problems first.
 
@@ -252,7 +253,9 @@ return slow;
   } 
    ``` 
    for example 10 nodes linked list and swap 3 and 6, following is the result: 
+
    `1 2 3 4 5 6 7 8 9 10` 
+
    `1 2 6 4 5 3 7 8 9 10` 
 
 
@@ -441,6 +444,7 @@ return slow;
    ``` 
 
    here is the result: 
+
    **input**: 
    10 
 
@@ -643,7 +647,7 @@ node * find_intersection_point_loop(node * head1, node * head2) {
 
 ## Stack 
 
-### Use array to implement stacks. 
+**Use array to implement stacks.** 
 
 + Push a node into a given stack. 
 
@@ -700,7 +704,7 @@ int Stack::peak_top() {
 ```
 
 
-### Use pointers or references to implement stacks. Including the operations above. 
+**Use pointers or references to implement stacks. Including the operations above.** 
 
 
 ```cpp 
@@ -748,7 +752,7 @@ int main() {
 ``` 
 
 
-### Given a sequence of push operations and a sequence of pop operations, tell whether it can be valid. 
+**Given a sequence of push operations and a sequence of pop operations, tell whether it can be valid.** 
 
 see the first quiz... 
 
@@ -854,7 +858,7 @@ after pop, MAX = 6 MIN = 1
 9 
 
 
-### Implement undo/redo functionality(or back/forward navigation in explorer). 
+**Implement undo/redo functionality(or back/forward navigation in explorer).** 
 
 For some softwares, they generally offer the **Redo** and **Undo** Operations, like Action panel in Paint.NET, or UNDO/REDO in 
 *Word* , normally we just press CTRL-Z to implement it. 
@@ -997,9 +1001,9 @@ int main() {
 
 
 
+###N-Queens-Problem 
 
-
-### Without recursion, use backtracking to solve n queens problem. 
+**Without recursion, use backtracking to solve n queens problem.** 
 
 ```cpp 
 #include <iostream>
@@ -1169,12 +1173,13 @@ int main() {
 }
 ``` 
 
-for `N = 16` it has 14772512 solutions. 
+for `N = 16` it has **14772512** solutions. 
 
+###Expression Evaluator 
 
-### Based on the expression evaluator above, add × and ÷ support. 
+**Based on the expression evaluator above, add × and ÷ support.** 
 
-### Based on the expression evaluator above, add brackets support. 
+**Based on the expression evaluator above, add brackets support.** 
 
 
 ```cpp 
@@ -1288,7 +1293,8 @@ int main() {
 
 ## Queue 
 
-### Use arrays to implement queue.
+**Use arrays to implement queue.** 
+
 + Enqueue a node into a given queue. 
 
 + Dequeue a node from a given queue. 
@@ -1347,7 +1353,7 @@ int rear(Queue * queue) {
 } 
 ``` 
 
-### Use pointers or references to implement linked lists. 
+**Use pointers or references to implement linked lists.** 
 
 ```cpp 
 #include <stdio.h>
@@ -1385,15 +1391,15 @@ int peak(StackNode* top) {
 } 
 ``` 
 
-### Implement a circular buffer. // TODO: Better problem needed 
+**Implement a circular buffer. // TODO: Better problem needed** 
 
 
-### Implement a message queue. // TODO: Better problem needed 
+**Implement a message queue. // TODO: Better problem needed** 
 
 
 ## Tree 
 
-### Explain binary tree, full binary tree, complete binary tree. 
+**Explain binary tree, full binary tree, complete binary tree.** 
 
 >In computer science, a binary tree is a tree data structure in which each node has at most two children, which are referred to as the left child and the right child. 
 
@@ -1402,7 +1408,7 @@ int peak(StackNode* top) {
 >In a complete binary tree every level, except possibly the last, is completely filled, and all nodes in the last level are as far left as possible. It can have between 1 and 2^h nodes at the last level h. 
 
 
-### Given the root node of a tree, print its pre-order traversal, in-order traversal, post-order traversal and level-order traversal. 
+**Given the root node of a tree, print its pre-order traversal, in-order traversal, post-order traversal and level-order traversal.** 
 
 ```cpp 
 #include <iostream>
@@ -1521,7 +1527,7 @@ int main() {
    ``` 
 
 
-### Given the post-order traversal and in-order traversal of a tree, print its pre-order traversal. 
+**Given the post-order traversal and in-order traversal of a tree, print its pre-order traversal.** 
 
 
 ```cpp
@@ -1555,7 +1561,7 @@ BiNode* BiTree :: reconstruction_i_post(int in[], int post[], int in_start, int 
 ``` 
 
 
-### Given a tree with a in-order traversal of which the data are in increasing order, i.e. BST, insert a new node while keeping this property. 
+**Given a tree with a in-order traversal of which the data are in increasing order, i.e. BST, insert a new node while keeping this property.** 
 
    + Implement a sorting algorithm with it (tree sort). 
 
@@ -1606,7 +1612,7 @@ BiNode* BiTree :: insertion_sort(int d[], int n) {
 }
 ``` 
 
-### Given n, how many structurally unique BST’s (binary search trees) that store values 1…n? 
+**Given n, how many structurally unique BST’s (binary search trees) that store values 1…n?** 
 
 we can use **Catalan Numbers** to solve this problem. 
 
@@ -1712,7 +1718,7 @@ void max_heapify(int a[], int start, int end) {
     }   
 }
 ``` 
-### Given a tree(no root node specified), print its diameter. 
+**Given a tree(no root node specified), print its diameter.** 
 
 ```cpp 
 int BiTree :: diameter(BiNode* T) {
@@ -1725,7 +1731,7 @@ int BiTree :: diameter(BiNode* T) {
 }
 ``` 
 
-### Given a set of string, find them in a text. 
+**Given a set of string, find them in a text.** 
 **Aho-Corasick Algorithm** : complexity: O(n+m+z) where *m* is the total length of words and 
 **z** is the total number occurrences of words in text. 
 
