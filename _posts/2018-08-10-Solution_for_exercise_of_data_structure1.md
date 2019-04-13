@@ -1736,7 +1736,121 @@ int BiTree :: diameter(BiNode* T) {
 **z** is the total number occurrences of words in text. 
 
 
+**Construct Huffman tree with a given set of nodes and their weights.** 
 
+```cpp 
+include <bits/stdc++.h>                                                               
+#include <fstream>
+using namespace std;
+#define N 100
+ 
+struct Node {
+    char data;
+    int weight;
+    struct Node *l_child, *r_child, *parent;
+};
+ 
+class HuffmanTree {
+private:
+    int num;//number of the characters apear
+    int w[N];
+    Node* h_tree[2*N-1];
+    Node* head;
+    void select(int &i1, int &i2);
+    string read_file();
+    void count_num(string &str); //count frequency of each character and the total numb
+public:
+    HuffmanTree();
+};
+ 
+void HuffmanTree :: count_num(string &str) {
+    int size = 52;
+    char ch[size];
+    int weight_tmp[size];
+    num = 0;
+    ch[0] = 'A';
+    ch[26] = 'a';
+    for (int i = 1; i < size/2; i++) {
+        ch[i] = ch[i-1] + 1;
+        ch[i+26] = ch[i+25] +1;
+    }
+    for (int i = 0; i < size; i++) weight_tmp[i] = 0;
+    for (int i = 0; i < str.size(); i++) {
+        if (str.at(i) > 64 && str.at(i) < 91) weight_tmp[str.at(i)-'A']++; 
+        if (str.at(i) > 96 && str.at(i) < 123) weight_tmp[str.at(i)-'a']++;
+    }
+    for (int i = 0; i < size; i++) {
+        if(weight_tmp[i] != 0) {
+            h_tree[num]->data = ch[i];
+            h_tree[num]->weight = weight_tmp[i];
+            w[num] = weight_tmp[i];
+            num++;
+        }
+    }
+}
+ 
+string HuffmanTree :: read_file() {
+    string str;
+    ifstream f1("test.txt",ios::in);
+    f1 >> str;
+    f1.close();
+    return str;
+}
+ 
+HuffmanTree :: HuffmanTree () {
+    head->parent = NULL;
+    head->l_child = NULL;
+    head->r_child = NULL;
+    string str = read_file();
+    count_num(str);
+    for (int i = 0; i < num; i++) {
+        h_tree[i]->parent = NULL;
+        h_tree[i]->l_child = NULL;
+        h_tree[i]->r_child = NULL;
+    }
+    pair<Node*,Node*> small;
+    small.first = NULL;
+    small.second = NULL;
+    int j = num;
+    while (!(small.first != NULL && small.second ==NULL)) {
+        for(int i = 0; i < num; i++) {
+            if (h_tree[i]->parent == NULL) {
+                if (small.first = NULL) {
+                    small.first = h_tree[i];
+                    break;
+                }
+                if (small.second = NULL) {
+                    small.second = h_tree[i];
+                    break;
+                }
+                if (small.second = NULL) {
+                    small.second = h_tree[i];
+                    break;
+                }
+                if (h_tree[i]->weight < small.first->weight) {
+                    small.first = h_tree[i];
+                    break;
+                }
+                if (h_tree[i]->weight < small.second->weight) {
+                    small.second = h_tree[i];
+                    break;
+                }
+            }
+        }
+        h_tree[j]->l_child = small.first;
+        h_tree[j]->r_child = small.second;
+        small.first->parent = h_tree[j];
+        small.second->parent = h_tree[j];
+        small.first = NULL;
+        small.second = NULL;
+    }
+}
+int main(){
+    new HuffmanTree();
+    return 0;
+}
+
+```
     unfinished->... 
 
 
