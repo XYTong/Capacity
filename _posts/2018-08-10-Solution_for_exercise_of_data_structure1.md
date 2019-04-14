@@ -1856,9 +1856,9 @@ int main(){
 
 ``` 
 
-##Graph 
+## Graph 
 
-### Sort with 
+### Store with 
 
 + adjacency matrix 
 
