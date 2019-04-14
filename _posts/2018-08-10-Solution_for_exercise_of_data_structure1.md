@@ -15,6 +15,8 @@ the previous part **Data type** [click here](https://xytong.github.io/Capacity/2
 
 ## Linked list 
 
+### implement 
+
 **Use arrays to implement linked lists.** 
 
 there are various ways to implement a linked list with using arrays. here i wrote tow different ways: 
@@ -211,7 +213,8 @@ while(fast != NULL && fast->next != NULL) {
 return slow;
 ``` 
  
- 
+### Sort 
+
 **Sort a given linked list.** 
 
 + If you get stucked on this problem, you may also try the following problems first.
@@ -584,7 +587,7 @@ void merge_sort(node** head) {
     ```
 
 
-### Given a linked list(assume it is), tell whether there is a loop and find the entry of it. 
+**Given a linked list(assume it is), tell whether there is a loop and find the entry of it.** 
 
 ```cpp 
 #include <iostream>
@@ -609,7 +612,7 @@ int main() {
 ``` 
 
 
-### Given two linked list, tell whether and where they intersect each other. What if there can be loops? 
+**Given two linked list, tell whether and where they intersect each other. What if there can be loops?** 
 
 
 ```cpp 
@@ -646,6 +649,8 @@ node * find_intersection_point_loop(node * head1, node * head2) {
 ```
 
 ## Stack 
+
+### implement a stack 
 
 **Use array to implement stacks.** 
 
@@ -756,7 +761,7 @@ int main() {
 
 see the first quiz... 
 
-### Implement a queue supporting push(). pop() and getMin(). 
+**Implement a queue supporting push(). pop() and getMin().** 
 
 ```cpp 
 #include <iostream>
@@ -857,6 +862,7 @@ after pop, MAX = 6 MIN = 1
 
 9 
 
+### undo and redo 
 
 **Implement undo/redo functionality(or back/forward navigation in explorer).** 
 
@@ -1001,7 +1007,7 @@ int main() {
 
 
 
-###N-Queens-Problem 
+### N-Queens-Problem 
 
 **Without recursion, use backtracking to solve n queens problem.** 
 
@@ -1175,7 +1181,7 @@ int main() {
 
 for `N = 16` it has **14772512** solutions. 
 
-###Expression Evaluator 
+### Expression Evaluator 
 
 **Based on the expression evaluator above, add × and ÷ support.** 
 
@@ -1293,6 +1299,8 @@ int main() {
 
 ## Queue 
 
+### implement a queue 
+
 **Use arrays to implement queue.** 
 
 + Enqueue a node into a given queue. 
@@ -1407,6 +1415,7 @@ int peak(StackNode* top) {
 
 >In a complete binary tree every level, except possibly the last, is completely filled, and all nodes in the last level are as far left as possible. It can have between 1 and 2^h nodes at the last level h. 
 
+### traversal of a tree 
 
 **Given the root node of a tree, print its pre-order traversal, in-order traversal, post-order traversal and level-order traversal.** 
 
@@ -1619,7 +1628,7 @@ we can use **Catalan Numbers** to solve this problem.
 The **n**th **Catalan number** is given directly in terms of binomial coefficients by$$C_{n} = \frac{n+1}{1}\bigl( \begin{smallmatrix} 2n \\ n \end{smallmatrix} \bigr) = \frac{(2n)!}{(n+1)!n!} = \prod_{k=2}^{n}\frac{n+k}{k}$$ 
 
 
-### Analyze the complexity of BST, tell in which situation it behaves bad. 
+**Analyze the complexity of BST, tell in which situation it behaves bad.** 
 
 best case, the height *h* equals to O(n), which means `complexity = O(logn)` 
 because the time complexity depends on height of BST. 
@@ -1718,6 +1727,8 @@ void max_heapify(int a[], int start, int end) {
     }   
 }
 ``` 
+### diameter of a tree 
+
 **Given a tree(no root node specified), print its diameter.** 
 
 ```cpp 
@@ -1730,11 +1741,13 @@ int BiTree :: diameter(BiNode* T) {
     return max(1+l_depth+r_depth, max(l_diameter, r_diameter));
 }
 ``` 
+### Aho-Corasick Algorithm 
 
 **Given a set of string, find them in a text.** 
 **Aho-Corasick Algorithm** : complexity: O(n+m+z) where *m* is the total length of words and 
 **z** is the total number occurrences of words in text. 
 
+### Huffman Tree 
 
 **Construct Huffman tree with a given set of nodes and their weights.** 
 
