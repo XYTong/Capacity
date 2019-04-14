@@ -1864,6 +1864,83 @@ int main(){
 
 + adjacency list 
 
+```cpp 
+using namespace std;
+#define N 100 //max number of V
+int adj_m[N][N]; //adjacency matrix
+//add an edge in an undirected graph
+void add_edge(vector<int> adj[], int i, int j) {
+    adj[i].push_back(j);
+}
+//print the adjacent list
+void print_graph(vector<int> adj[], int n) {
+    for (int v = 0; v < n; v++) {
+        cout << "\n Adjacency list of vertex " << v << "\n head ";
+        for (auto x : adj[v]) cout << "-> " << x;
+        printf("\n");
+    }   
+}
+ 
+int main() {
+    int n;
+    ifstream f1("adjacency_matrix.txt", ios::in);
+    f1 >> n;
+    for (int i = 0; i < n; i++)
+        for (int j = 0; j < n; j++) f1 >> adj_m[i][j];
+    //from adj_matix build an adj_list
+    vector<int> adj[n];
+    for (int i = 0; i < n; i++) {
+        for (int j  = 0; j < n; j++) {
+            if (adj_m[i][j] != 0) add_edge(adj, i, j); 
+        }   
+    }   
+    print_graph(adj, n); 
+    // from adj_list build an adj_matrix
+    n = sizeof(adj)/sizeof(adj[0]);
+    int new_adj_m[n][n];
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            new_adj_m[i][j] = 0;
+        }   
+        for (auto x : adj[i]) new_adj_m[i][x] = 1;
+    }   
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) cout << new_adj_m[i][j] << " ";
+        cout << endl;
+    }   
+}             
+``` 
+
+result: 
+
+`Adjacency list of vertex 0` 
+
+`head -> 1-> 4` 
+
+`Adjacency list of vertex 1` 
+
+`head -> 0-> 2-> 3-> 4` 
+
+`Adjacency list of vertex 2` 
+`head -> 1-> 3` 
+
+`Adjacency list of vertex 3` 
+
+`head -> 1-> 2-> 4` 
+
+`Adjacency list of vertex 4` 
+
+`head -> 0-> 1-> 3` 
+
+`0 1 0 0 1` 
+
+`1 0 1 1 1 ` 
+
+`0 1 0 1 0 ` 
+
+`0 1 1 0 1 ` 
+
+`1 1 0 1 0 ` 
 
     unfinished->... 
 
