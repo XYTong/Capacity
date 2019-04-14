@@ -1739,112 +1739,116 @@ int BiTree :: diameter(BiNode* T) {
 **Construct Huffman tree with a given set of nodes and their weights.** 
 
 ```cpp 
-include <bits/stdc++.h>                                                               
+#include <bits/stdc++.h>                                                                     
 #include <fstream>
 using namespace std;
-#define N 100
- 
-struct Node {
-    char data;
-    int weight;
+#define N 52       
+                   
+struct Node {   
+    char data; //Characters
+    int weight; 
     struct Node *l_child, *r_child, *parent;
-};
- 
+};                 
+                   
 class HuffmanTree {
-private:
-    int num;//number of the characters apear
-    int w[N];
-    Node* h_tree[2*N-1];
-    Node* head;
-    void select(int &i1, int &i2);
+private:           
+    vector<Node*>h_tree;
     string read_file();
-    void count_num(string &str); //count frequency of each character and the total numb
-public:
+    void count_num(); //count frequency of each character and the total number num
+public:            
     HuffmanTree();
-};
- 
-void HuffmanTree :: count_num(string &str) {
-    int size = 52;
+    //void count_num(string &str);
+};                 
+                   
+void HuffmanTree :: count_num() {
+    string s = read_file();
+    int size = 52; 
     char ch[size];
     int weight_tmp[size];
-    num = 0;
     ch[0] = 'A';
     ch[26] = 'a';
     for (int i = 1; i < size/2; i++) {
         ch[i] = ch[i-1] + 1;
-        ch[i+26] = ch[i+25] +1;
-    }
+        ch[i+26] = ch[i+25] +1; 
+    }              
     for (int i = 0; i < size; i++) weight_tmp[i] = 0;
-    for (int i = 0; i < str.size(); i++) {
-        if (str.at(i) > 64 && str.at(i) < 91) weight_tmp[str.at(i)-'A']++; 
-        if (str.at(i) > 96 && str.at(i) < 123) weight_tmp[str.at(i)-'a']++;
-    }
+    for (int i = 0; i < s.size(); i++) {
+        if (s[i] > 64 && s[i] < 91) weight_tmp[s[i]-'A']++; 
+        if (s[i] > 96 && s[i] < 123) weight_tmp[26+s[i]-'a']++;
+    }              
     for (int i = 0; i < size; i++) {
         if(weight_tmp[i] != 0) {
-            h_tree[num]->data = ch[i];
-            h_tree[num]->weight = weight_tmp[i];
-            w[num] = weight_tmp[i];
-            num++;
-        }
-    }
-}
- 
+            Node* T = (Node*) malloc(sizeof(Node));
+            T->data = ch[i];
+            T->weight = weight_tmp[i];
+            T->parent = NULL;
+            T->l_child = NULL;
+            T->r_child = NULL;
+            h_tree.push_back(T);
+            cout << "done" << endl;
+        }       
+    }           
+}               
+                
 string HuffmanTree :: read_file() {
-    string str;
+    string str; 
     ifstream f1("test.txt",ios::in);
-    f1 >> str;
-    f1.close();
-    return str;
-}
- 
+    f1 >> str;  
+    f1.close(); 
+    cout << str << endl;
+    cout << "OK2" << endl;
+    return str; 
+}               
+// customized compare-function of struct for sorting
+bool comp(const Node* a, const Node* b) {
+    return a->weight > b->weight;
+}               
+void gradation(Node* root) { //在这里采用层次遍历的方法
+    deque <Node*> c;  //定义一个空的队列
+    c.push_back(root);
+    while (!c.empty()) {  //如果队列不为空
+        Node* temp = c.front();  //返回队列的第一个元素
+        if (temp) {  //如果是非空结点
+            cout << temp->data << "-" << temp->weight << " ";
+            c.pop_front();  //出队列
+                
+            c.push_back(temp->l_child);  //左孩子
+            c.push_back(temp->r_child); //右孩子
+        }       
+        else {  
+            c.pop_front();  //出队列
+        }       
+    }           
+}               
+                
 HuffmanTree :: HuffmanTree () {
-    head->parent = NULL;
-    head->l_child = NULL;
-    head->r_child = NULL;
-    string str = read_file();
-    count_num(str);
-    for (int i = 0; i < num; i++) {
-        h_tree[i]->parent = NULL;
-        h_tree[i]->l_child = NULL;
-        h_tree[i]->r_child = NULL;
-    }
+    count_num();
     pair<Node*,Node*> small;
     small.first = NULL;
     small.second = NULL;
-    int j = num;
-    while (!(small.first != NULL && small.second ==NULL)) {
-        for(int i = 0; i < num; i++) {
-            if (h_tree[i]->parent == NULL) {
-                if (small.first = NULL) {
-                    small.first = h_tree[i];
-                    break;
-                }
-                if (small.second = NULL) {
-                    small.second = h_tree[i];
-                    break;
-                }
-                if (small.second = NULL) {
-                    small.second = h_tree[i];
-                    break;
-                }
-                if (h_tree[i]->weight < small.first->weight) {
-                    small.first = h_tree[i];
-                    break;
-                }
-                if (h_tree[i]->weight < small.second->weight) {
-                    small.second = h_tree[i];
-                    break;
-                }
-            }
-        }
-        h_tree[j]->l_child = small.first;
-        h_tree[j]->r_child = small.second;
-        small.first->parent = h_tree[j];
-        small.second->parent = h_tree[j];
-        small.first = NULL;
-        small.second = NULL;
-    }
-}
+    for (int i = 0; i < h_tree.size(); i++) {
+        cout << h_tree[i]->data << " " << h_tree[i]->weight << endl;
+    }          
+    cout << "after sorting" << endl;
+    sort(h_tree.begin(),h_tree.end(),comp);
+    for (int i = 0; i < h_tree.size(); i++) cout << h_tree[i]->data << " " << h_tree[i]->weig
+    while(h_tree.size() != 1) {
+        Node* tmp_1 = h_tree.back();
+        h_tree.pop_back();
+        Node* tmp_2 = h_tree.back();
+        h_tree.pop_back();
+        Node* T = (Node*) malloc(sizeof(Node));
+        T->l_child = tmp_1;
+        T->r_child = tmp_2;
+        T->parent = NULL;
+        T->data = '0';
+        T->weight = tmp_1->weight + tmp_2->weight;
+        h_tree.push_back(T);
+        sort(h_tree.begin(),h_tree.end(),comp);
+    }          
+    Node* head = h_tree.front();
+    gradation(head);
+}            
 int main(){
     new HuffmanTree();
     return 0;
