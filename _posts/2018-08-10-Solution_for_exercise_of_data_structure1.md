@@ -1854,7 +1854,17 @@ int main(){
     return 0;
 }
 
-```
+``` 
+
+##Graph 
+
+### Sort with 
+
++ adjacency matrix 
+
++ adjacency list 
+
+
     unfinished->... 
 
 
