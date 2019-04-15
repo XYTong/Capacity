@@ -1926,34 +1926,89 @@ int main() {
 
 result: 
 
-`Adjacency list of vertex 0` 
+`Adjacency list of vertex 0`  
+`head -> 1-> 4`  
 
-`head -> 1-> 4` 
+`Adjacency list of vertex 1`  
+`head -> 0-> 2-> 3-> 4`  
 
-`Adjacency list of vertex 1` 
+`Adjacency list of vertex 2`  
+`head -> 1-> 3`  
 
-`head -> 0-> 2-> 3-> 4` 
+`Adjacency list of vertex 3`  
+`head -> 1-> 2-> 4`  
 
-`Adjacency list of vertex 2` 
-`head -> 1-> 3` 
+`Adjacency list of vertex 4`  
+`head -> 0-> 1-> 3`  
 
-`Adjacency list of vertex 3` 
+`0 1 0 0 1`  
+`1 0 1 1 1 `  
+`0 1 0 1 0 `  
+`0 1 1 0 1 `  
+`1 1 0 1 0 `  
 
-`head -> 1-> 2-> 4` 
++ Explain the possible meaning of powers of adjacency matrices 
 
-`Adjacency list of vertex 4` 
+>If A is the adjacency matrix of the directed or undirected graph G, then the matrix $A^{n}$ (i.e., the **matrix product** of n copies of **A**) has an interesting interpretation: the element (i, j) gives the number of (directed or undirected) walks of length n from vertex i to vertex j. If n is the smallest nonnegative integer, such that for some i, j, the element (i, j) of An is positive, then n is the distance between vertex i and vertex j. This implies, for example, that the number of triangles in an undirected graph G is exactly the trace of $A^{3}$ divided by 6. Note that the adjacency matrix can be used to determine whether or not the graph is connected. 
 
-`head -> 0-> 1-> 3` 
++ Generate minimum spanning tree of given graph. 
 
-`0 1 0 0 1` 
+```cpp  
+#include<bits/stdc++.h>                                                                           
+using namespace std;   
+#define N 5               
+                          
+int minKey(int key[],bool mst_set[]) {
+    int mini = INT_MAX;
+    int min_index;        
+    for (int i = 0; i < N; i++) {
+        if (mst_set[i] == false && key[i] < mini) {
+            mini = key[i];
+            min_index = i;
+        }                 
+    }                     
+    return min_index;  
+}                         
+                          
+void printMST(int parent[], int n, int adj_m[N][N]) {
+    printf("Edge \tWeight\n");
+    for (int i = 1; i < n; i++) printf("%d - %d \t%d \n", parent[i], i, adj_m[i][parent[i]]);
+}                         
+void prim_MST(int adj_m[N][N]) {
+    int parent[N];        
+    int key[N];           
+    bool mst_set[N];   
+    for (int i  = 0; i < N; i++) {
+        key[i] = INT_MAX;
+        mst_set[i] = false;
+    }                     
+    key[0] = 0;           
+    parent[0] = -1;       
+    for (int cnt = 0; cnt < N-1; cnt++) {
+        int u = minKey(key, mst_set);
+        mst_set[u] = true;
+        for (int v = 0; v < N; v++) {
+            if (adj_m[u][v] && mst_set[v] == false && adj_m[u][v] < key[v]) {
+                parent[v] = u;
+                key[v] = adj_m[u][v];
+            }             
+        }                 
+    }                     
+    printMST(parent,N,adj_m);
+}                         
+                          
+int main() {   
+    ifstream f1("adjacency_matrix.txt", ios::in);
+    int n;  
+    f1 >> n;       
+    int adj_m[N][N];  
+    for (int i = 0; i < N; i++) 
+        for (int j = 0; j < N; j++) f1 >> adj_m[i][j];
+    prim_MST(adj_m);
+} 
+```  
 
-`1 0 1 1 1 ` 
 
-`0 1 0 1 0 ` 
-
-`0 1 1 0 1 ` 
-
-`1 1 0 1 0 ` 
 
     unfinished->... 
 
