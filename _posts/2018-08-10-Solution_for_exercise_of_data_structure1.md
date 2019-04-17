@@ -15,7 +15,7 @@ the previous part **Data type** [click here](https://xytong.github.io/Capacity/2
 
 ## Linked list 
 
-### implement 
+### implement(Linked List) 
 
 **Use arrays to implement linked lists.** 
 
@@ -213,7 +213,7 @@ while(fast != NULL && fast->next != NULL) {
 return slow;
 ``` 
  
-### Sort 
+### Sort of Linked List 
 
 **Sort a given linked list.** 
 
@@ -1621,6 +1621,8 @@ BiNode* BiTree :: insertion_sort(int d[], int n) {
 }
 ``` 
 
+### BST  
+
 **Given n, how many structurally unique BST’s (binary search trees) that store values 1…n?** 
 
 we can use **Catalan Numbers** to solve this problem. 
@@ -1871,7 +1873,7 @@ int main(){
 
 ## Graph 
 
-### Store with 
+### Store of Graph  
 
 + adjacency matrix 
 
@@ -1879,7 +1881,7 @@ int main(){
 
 ```cpp 
 using namespace std;
-#define N 100 //max number of V
+#define N 100 //max number of V 
 int adj_m[N][N]; //adjacency matrix
 //add an edge in an undirected graph
 void add_edge(vector<int> adj[], int i, int j) {
@@ -1951,7 +1953,75 @@ result:
 
 >If A is the adjacency matrix of the directed or undirected graph G, then the matrix $A^{n}$ (i.e., the **matrix product** of n copies of **A**) has an interesting interpretation: the element (i, j) gives the number of (directed or undirected) walks of length n from vertex i to vertex j. If n is the smallest nonnegative integer, such that for some i, j, the element (i, j) of An is positive, then n is the distance between vertex i and vertex j. This implies, for example, that the number of triangles in an undirected graph G is exactly the trace of $A^{3}$ divided by 6. Note that the adjacency matrix can be used to determine whether or not the graph is connected. 
 
-+ Generate minimum spanning tree of given graph. 
+### BFS Algorithm 
+
+> **Breadth-first search (BFS)** is an algorithm for traversing or searching tree or graph data structures. It starts at the tree root (or some arbitrary node of a graph, sometimes referred to as a search key), and explores all of the neighbor nodes at the present depth prior to moving on to the nodes at the next depth level.  
+It uses the opposite strategy as depth-first search, which instead explores the highest-depth nodes first before being forced to backtrack and expand shallower nodes.[WiKi](https://en.wikipedia.org/wiki/Breadth-first_search)  
+
++ **pseudocode**  
+$BFS(G,s)$  
+$for each vertex u \in G.V- \lbrace s \rbrace$  
+$ \quad u.color = WHITE$  
+$ \quad u.d = \infty$  
+$ \quad u. \pi = NIL$  
+$s.color = GRAY$  
+$s.d = 0$  
+$s. \pi = NIL$  
+$Q = \varnothing$ 
+$ENQUEQUE(Q,s)$  
+$while Q \neq \varnothing$  
+$u = DEQUEUE(Q)$  
+$for each v \in G.adj[ u ]$  
+$ \quad if v.color == WHITE$  
+$ \quad \quad v.color = GRAY$  
+$ \quad \quad v.d = u.d + 1$  
+$ \quad \quad v. \pi = u$  
+$ \quad \quad ENQUEUE(Q,v)$  
+$ u.color = BLACK$  
+
+> The breadth-first-search procedure BFS below assumes that the input graph
+$G = (V,E)$ is represented using adjacency lists. It attaches several additional
+attributes to each vertex in the graph. We store the color of each vertex\  $u \in V$
+in the attribute u.color and the predecessor of u in the attribute $u. \pi$. If u has no
+predecessor (for example, if u D s or u has not been discovered), then\ $u. \pi = NIL$ .
+The attribute $u.d$ holds the distance from the source s to vertex u computed by the
+algorithm. The algorithm also uses a first-in, first-out queue Q (see Section 10.1)
+to manage the set of gray vertices.(**Introduction to Algorithms /Thomas Cormen /Leiserson**) 
+
+implement with c++:  
+```cpp 
+#include<bits/stdc++.h>
+using namespace std;
+struct Node {
+    int color; //0 represent white, 1-gray, 2-black
+    int d; //distence between node and root
+    Node* parent
+};
+vector<Node> V; // BFS-Tree
+vector<int> adj_list[n];
+
+void BFS(vector<Node V>) {
+    n = V.size();
+    s = V[0];
+    for (int i = 1; i < n; i++) {
+        V[i].color = 0;
+        V[i].d = INT_MAX;
+        V[i].parent = NULL
+    }
+    s.color = 1;
+    s.d = 0;
+    s.parent = NULL;
+    queue<Node> Q;
+    queue.push(s);
+    while(!Q.empty()) {
+        u = Q.front();
+        
+
+    }
+}
+
++ Generate minimum spanning tree of given graph.  
+### Prim-Algorithm  
 
 ```cpp  
 #include<bits/stdc++.h>                                                                           
@@ -2009,6 +2079,7 @@ int main() {
 ```  
 
 
+**Kruskal-Algorithm**  
 
     unfinished->... 
 
