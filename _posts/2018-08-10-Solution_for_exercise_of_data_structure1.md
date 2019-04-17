@@ -2043,19 +2043,19 @@ entire process until it has discovered every vertex. (from "Introduction to Algo
 
 + **pseudocode**  
 $DFG(G)$  
-$textbf{for}\ each\ vertex\ u \in G.V$  
+$for\ each\ vertex\ u \in G.V$  
 $\qquad u.color = textbf{WHITE}$  
 $\qquad u. \pi = textbf{NIL}$  
 $time = 0$  
-$textbf{for}\ each\ vertex\ u \in G.V$  
-$\qquad textbf{if} u.color == textbf{WHITE}$  
+$for\ each\ vertex\ u \in G.V$  
+$\qquad if u.color == textbf{WHITE}$  
 $\qquad \qquad DFS-VISIT(G,u)$  
 $DFS-VISIT(G,u)$  
 $time = time + 1$  
 $u.d = time$  
 $u.color = GRAY$  
-$textbf{for}\ each\ v \in G:Adj[ u ]$  
-$\qquad textbf{if}\ v.color = WHITE$  
+$for\ each\ v \in G:Adj[ u ]$  
+$\qquad if\ v.color = WHITE$  
 $\qquad \qquad v. \pi = u$  
 $\qquad \qquad DFS-VISIT(G,v)$  
 $u.color = BLACK$  
