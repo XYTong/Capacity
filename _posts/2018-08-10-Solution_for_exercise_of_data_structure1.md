@@ -1960,23 +1960,23 @@ It uses the opposite strategy as depth-first search, which instead explores the 
 
 + **pseudocode**  
 $BFS(G,s)$  
-$for each vertex u \in G.V- \lbrace s \rbrace$  
-$ \quad u.color = WHITE$  
-$ \quad u.d = \infty$  
-$ \quad u. \pi = NIL$  
+$for\ each\ vertex\ u \in G.V- \lbrace s \rbrace$  
+$ \qquad u.color = WHITE$  
+$ \qquad u.d = \infty$  
+$ \qquad u. \pi = NIL$  
 $s.color = GRAY$  
 $s.d = 0$  
 $s. \pi = NIL$  
-$Q = \varnothing$ 
+$Q = \varnothing$  
 $ENQUEQUE(Q,s)$  
-$while Q \neq \varnothing$  
+$while\ Q \neq \varnothing$  
 $u = DEQUEUE(Q)$  
-$for each v \in G.adj[ u ]$  
-$ \quad if v.color == WHITE$  
-$ \quad \quad v.color = GRAY$  
-$ \quad \quad v.d = u.d + 1$  
-$ \quad \quad v. \pi = u$  
-$ \quad \quad ENQUEUE(Q,v)$  
+$for\ each\ v \in G.adj[ u ]$  
+$ \qquad if\ v.color == WHITE$  
+$ \qquad \quad v.color = GRAY$  
+$ \qquad \quad v.d = u.d + 1$  
+$ \qquad \quad v. \pi = u$  
+$ \qquad \quad ENQUEUE(Q,v)$  
 $ u.color = BLACK$  
 
 > The breadth-first-search procedure BFS below assumes that the input graph
@@ -2011,14 +2011,23 @@ void BFS(vector<Node V>) {
     s.color = 1;
     s.d = 0;
     s.parent = NULL;
-    queue<Node> Q;
-    queue.push(s);
+    queue<int> Q;
+    queue.push(0);
     while(!Q.empty()) {
         u = Q.front();
-        
-
+        Q.pop();
+        for(auto x : adj_list[u]) {
+            if (V[x].color == 0) {
+                V[x].color = 1;
+                V[x].d = V[u].d + 1;
+                V[x].parent = &V[u];
+                Q.push(x);
+            }
+        }
+        V[u].color = 2;
     }
 }
+``` 
 
 + Generate minimum spanning tree of given graph.  
 ### Prim-Algorithm  
