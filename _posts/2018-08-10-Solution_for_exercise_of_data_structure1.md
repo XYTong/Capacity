@@ -1,12 +1,12 @@
 ---
 layout: post
-title: Part I
+title: Study Notes, Introduction to Algorithms, Data Structure
 ---
 # Basic data structures
  
 ## Abstract 
 
-**thanks for the help by [simonmysun](https://github.com/simonmysun) for the Collectionin in learning and practicing of data structure** 
+**thanks for the help by [simonmysun](https://github.com/simonmysun) for the Collection in learning and practicing of data structure** 
  
 --- 
 the following comes the solutions and summary of [data structure](https://xytong.github.io/Capacity/2018/07/20/Learning_data_structure.html): 
@@ -1953,7 +1953,7 @@ result:
 
 >If A is the adjacency matrix of the directed or undirected graph G, then the matrix $A^{n}$ (i.e., the **matrix product** of n copies of **A**) has an interesting interpretation: the element (i, j) gives the number of (directed or undirected) walks of length n from vertex i to vertex j. If n is the smallest nonnegative integer, such that for some i, j, the element (i, j) of An is positive, then n is the distance between vertex i and vertex j. This implies, for example, that the number of triangles in an undirected graph G is exactly the trace of $A^{3}$ divided by 6. Note that the adjacency matrix can be used to determine whether or not the graph is connected. 
 
-### BFS Algorithm 
+### BFS/DFS Algorithm 
 
 > **Breadth-first search (BFS)** is an algorithm for traversing or searching tree or graph data structures. It starts at the tree root (or some arbitrary node of a graph, sometimes referred to as a search key), and explores all of the neighbor nodes at the present depth prior to moving on to the nodes at the next depth level.  
 It uses the opposite strategy as depth-first search, which instead explores the highest-depth nodes first before being forced to backtrack and expand shallower nodes.[WiKi](https://en.wikipedia.org/wiki/Breadth-first_search)  
@@ -1978,6 +1978,7 @@ $ \qquad \quad v.d = u.d + 1$
 $ \qquad \quad v. \pi = u$  
 $ \qquad \quad ENQUEUE(Q,v)$  
 $ u.color = BLACK$  
+total running time = $O(V+E)$  
 
 > The breadth-first-search procedure BFS below assumes that the input graph
 $G = (V,E)$ is represented using adjacency lists. It attaches several additional
@@ -2027,7 +2028,40 @@ void BFS(vector<Node V>) {
         V[u].color = 2;
     }
 }
-``` 
+```  
+
++ DFS  
+> The strategy followed by depth-first search is, as its name implies, to search
+“deeper” in the graph whenever possible. Depth-first search explores edges out
+of the most recently discovered vertex *v* that still has unexplored edges leaving it.
+Once all of *v*’s edges have been explored, the search “backtracks” to explore edges
+leaving the vertex from which *v* was discovered. This process continues until we
+have discovered all the vertices that are reachable from the original source vertex.
+If any undiscovered vertices remain, then depth-first search selects one of them as
+a new source, and it repeats the search from that source. The algorithm repeats this
+entire process until it has discovered every vertex. (from "Introduction to Algorithms")  
+
++ **pseudocode**  
+$DFG(G)$  
+$textbf{for}\ each\ vertex\ u \in G.V$  
+$\qquad u.color = textbf{WHITE}$  
+$\qquad u. \pi = textbf{NIL}$  
+$time = 0$  
+$textbf{for}\ each\ vertex\ u \in G.V$  
+$\qquad textbf{if} u.color == textbf{WHITE}$  
+$\qquad \qquad DFS-VISIT(G,u)$  
+$DFS-VISIT(G,u)$  
+$time = time + 1$  
+$u.d = time$  
+$u.color = GRAY$  
+$textbf{for}\ each\ v \in G:Adj[ u ]$  
+$\qquad textbf{if}\ v.color = WHITE$  
+$\qquad \qquad v. \pi = u$  
+$\qquad \qquad DFS-VISIT(G,v)$  
+$u.color = BLACK$  
+$time = time + 1$  
+$u.f = time$  
+
 
 + Generate minimum spanning tree of given graph.  
 ### Prim-Algorithm  
