@@ -2051,16 +2051,74 @@ $for\ each\ vertex\ u \in G.V$
 $\qquad if u.color == textbf{WHITE}$  
 $\qquad \qquad DFS-VISIT(G,u)$  
 $DFS-VISIT(G,u)$  
-$time = time + 1$  
+$time = time + 1$       //white vertex u has just been discovered  
 $u.d = time$  
 $u.color = GRAY$  
-$for\ each\ v \in G:Adj[ u ]$  
+$for\ each\ v \in G:Adj[ u ]$        //explore edge (u,v)  
 $\qquad if\ v.color = WHITE$  
 $\qquad \qquad v. \pi = u$  
 $\qquad \qquad DFS-VISIT(G,v)$  
 $u.color = BLACK$  
 $time = time + 1$  
 $u.f = time$  
+
+process of DFS: initially set we all nodes to white, .... 
+
+```cpp 
+#include<bits/stdc++.h>                                                        
+using namespace std;
+      
+class Graph{
+private:
+    int V;
+    list<int>* adj;
+    void DFS_rec(int v, bool visited[]);
+public:
+    Graph(int V);
+    void add_edge(int v, int w);
+    void DFS(int v);
+};    
+      
+Graph :: Graph(int V) {
+    this->V = V;
+    adj = new list<int>[V];
+}     
+      
+void Graph :: add_edge(int v, int w){
+    adj[v].push_back(w);
+}     
+      
+void Graph :: DFS_rec(int v, bool visited[]) {
+    visited[v] = true;
+    cout << v << " ";
+    list<int>::iterator i;
+    for (i = adj[v].begin(); i != adj[v].end(); ++i) {
+        if (!visited[*i]) DFS_rec(*i, visited);
+    } 
+}     
+      
+void Graph :: DFS(int v) {
+    bool *visited = new bool[V];
+    for (int i = 0; i < V; i++) visited[i] = false;
+    DFS_rec(v, visited);
+}     
+      
+int main() {
+    ifstream f1("adjacency_matrix.txt", ios::in);
+    int V;
+    f1 >> V;
+    int adj_m[V][V];
+    for (int i = 0; i < V; i++) 
+        for (int j = 0; j < V; j++) f1 >> adj_m[i][j];
+    Graph g(V);
+    for (int i = 0; i < V; i++)
+        for (int j = 0; j < V; j++) 
+            if(adj_m[i][j] == 1) g.add_edge(i,j);
+    g.DFS(0);
+    return 0;
+}
+
+``` 
 
 
 + Generate minimum spanning tree of given graph.  
