@@ -1,6 +1,6 @@
 ---
 layout: post
-title: ich,Theoritische Informatik, NOTES
+title: Computergeometrie
 ---
 # 1.6 Abstande, Winkel, Inhalte 
 ## Skalarprodukt 
