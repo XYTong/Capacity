@@ -103,7 +103,17 @@ sources: # bootcdn (default), unpkg
 
 
 ## => Comments
+comments:
+  provider: disqus
+  disqus:
+    shortname: "XiangyuTong"
 ##############################
+pageview:
+  provider: leancloud
+  leancloud:
+    app_id    : "8av82NIuQarDtNvWJjIxMQEd-gzGzoHsz"
+    app_key   : "rDbgl7HTGLwvBbyEbW175LVO"
+    app_class : "test"
 ## Disqus
 disqus:
   shortname: # the Disqus shortname for the site

@@ -1,5 +1,12 @@
 ---
-layout: post
+layout: article
+sharing: true
+license: true
+aside:
+  toc: true
+show_edit_on_github: true
+pageview: true
+key: !!str
 title: Study Notes, Introduction to Algorithms, Data Structure
 ---
 # Basic data structures
