@@ -1,7 +1,5 @@
 ---
 layout: article
-sharing: true
-pageview: true
 title: Study Notes, Introduction to Algorithms, Data Structure
 ---
 # Basic data structures
