@@ -36,7 +36,7 @@ timezone: Europe/Berlin # see https://en.wikipedia.org/wiki/List_of_tz_database_
 author:
   name: Laplace_Operator
   email: xiangyu.tong@s2012.tu-chemnitz.de.com # your Email address e.g. someone@site.com
-  facebook: # your Facebook username
+  facebook: https://www.facebook.com/profile.php?id=100008055407748 # your Facebook username
   twitter: # your Twitter username
   github: XiangyuTONG # your GitHub username
   linkedin: # your Linkedin username
@@ -109,11 +109,11 @@ comments:
     shortname: "XiangyuTong"
 ##############################
 pageview:
-  provider: leancloud
-  leancloud:
-    app_id    : "8av82NIuQarDtNvWJjIxMQEd-gzGzoHsz"
-    app_key   : "rDbgl7HTGLwvBbyEbW175LVO"
-    app_class : "test"
+  #provider: leancloud
+  #leancloud:
+    #app_id    : "8av82NIuQarDtNvWJjIxMQEd-gzGzoHsz"
+    #app_key   : "rDbgl7HTGLwvBbyEbW175LVO"
+    #app_class : "test"
 ## Disqus
 disqus:
   shortname: # the Disqus shortname for the site
@@ -133,9 +133,9 @@ gitalk:
 ##############################
 ## Leancloud
 leancloud:
-  app_id: # LeanCloud App id
-  app_key: # LeanCloud App key
-  app_class: # LeanCloud App class
+  app_id: "8av82NIuQarDtNvWJjIxMQEd-gzGzoHsz" # LeanCloud App id
+  app_key: "rDbgl7HTGLwvBbyEbW175LVO" # LeanCloud App key
+  app_class: "test" # LeanCloud App class
 
 
 ## => Analytics
