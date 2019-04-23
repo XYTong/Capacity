@@ -17,6 +17,7 @@
 ## => Site Settings
 ##############################
 text_color_theme: default # "default" (default), "dark", "forest", "ocean", "chocolate", "orange"
+highlight_theme: default # "default" (default), "tomorrow", "tomorrow-night", "tomorrow-night-eighties", "tomorrow-night-blue", "tomorrow-night-bright"
 url: https://xytong.github.io # the base hostname & protocol for your site e.g. https://www.someone.com
 baseurl: /Capacity # does not include hostname
 title: XiangyuTONG's blog
@@ -71,7 +72,7 @@ nav_lists:
 ##############################
 ## excerpt
 excerpt_separator: <!--more-->
-excerpt_type: html # text (default), html
+excerpt_type: text # text (default), html
 
 ## TOC
 toc:
