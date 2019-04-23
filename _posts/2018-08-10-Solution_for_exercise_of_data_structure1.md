@@ -1,5 +1,5 @@
 ---
-layout: article
+layout: post
 title: Study Notes, Introduction to Algorithms, Data Structure
 ---
 # Basic data structures
