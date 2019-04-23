@@ -1,6 +1,6 @@
 ---
 layout: post
-key: dianjiliang
+key: 123
 title: Study Notes, Introduction to Algorithms, Data Structure
 ---
 # Basic data structures
