@@ -2119,8 +2119,51 @@ int main() {
     return 0;
 }
 
-``` 
+```  
+### SSC  
++ **pseudocode**  
+**Strongly-Connected-Components(G)**  
+1. $call\ DFS(G)\ to\ compute\ finishing times\ u.f for\ each\ vertex\ u$  
+2. $compute\ G^{T}$  
+3. $call DFS(G^{T}, but\ in\ the\ main\ loop\ of\ DFS\ must\ consider\ the\ vertices\ in\ the\ decreased\ order\ of\ u.f)$  
+4. $output\ the\ vertices\ of\ each\ tree\ in\ the\ DF-forest\ which\ formed\ in\ line\ 3\ as\ a\ separate\ SSC$  
 
+```cpp  
+void Graph :: get_trans() {
+    Graph g(V);
+    for (int v = 0; v < V; v++) {
+        list<int> :: iterator i;
+        for (i = adj[v].begin(); i != adj[v].end(); i++) g.adj[*i].push_back(v);
+    }
+}
+
+void Graph :: creat_order(int v, bool visited[], stack<int> &Stack) {
+    visited[v] = true;
+    list<int> :: iterator i;
+    for(i = adj[v].begin(); i != adj[v].end(); i++) {
+        if (!visited[*i]) creat_order(*i, visited, Stack);
+    }
+    Stack.push_back(v);
+}
+void Graph :: print_SSC() {
+    stack<int> Stack;
+    bool *visited = new bool[V];
+    for (int i = 0; i< V; i++) visited[i] = false;
+    for (int i = 0; i < V; i++) {
+        if(visited[i] == false) creat_order(i, visited, Stack);
+    }
+    Graph gt = get_trans();
+    for (int i = 0; i < V; i++) visited[i] = false;
+    while(!Stack.empty()) {
+        int v = Stack.top();
+        Stack.pop();
+        if (visited[v] == false) {
+            gt.DFS_rec(v,visited);
+            cout << endl;
+        }
+    }
+}
+```  
 
 + Generate minimum spanning tree of given graph.  
 ### Prim-Algorithm  
