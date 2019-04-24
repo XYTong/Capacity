@@ -2123,10 +2123,10 @@ int main() {
 ### SSC  
 + **pseudocode**  
 **Strongly-Connected-Components(G)**  
-1. $call\ DFS(G)\ to\ compute\ finishing times\ u.f for\ each\ vertex\ u$  
+1. $call\ DFS(G)\ to\ compute\ finishing\ times\ u.f\ for\ each\ vertex\ u$  
 2. $compute\ G^{T}$  
-3. $call DFS(G^{T}, but\ in\ the\ main\ loop\ of\ DFS\ must\ consider\ the\ vertices\ in\ the\ decreased\ order\ of\ u.f)$  
-4. $output\ the\ vertices\ of\ each\ tree\ in\ the\ DF-forest\ which\ formed\ in\ line\ 3\ as\ a\ separate\ SSC$  
+3. $call\ DFS(G^{T},but\ in\ the\ main\ loop\ of\ DFS\ must\ consider \\ the\ vertices\ in\ the\ decreased\ order\ of\ u.f)$  
+4. $output\ the\ vertices\ of\ each\ tree\ in\ the\ DF-forest \\ which\ formed\ in\ line\ 3\ as\ a\ separate\ SSC$  
 
 ```cpp  
 void Graph :: get_trans() {
