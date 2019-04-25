@@ -2225,7 +2225,7 @@ int main() {
 
 
 **Kruskal-Algorithm**  
-
+1111111111
     unfinished->... 
 
 
