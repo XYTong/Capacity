@@ -2045,11 +2045,11 @@ entire process until it has discovered every vertex. (from "Introduction to Algo
 + **pseudocode**  
 $DFG(G)$  
 $for\ each\ vertex\ u \in G.V$  
-$\qquad u.color = textbf{WHITE}$  
-$\qquad u. \pi = textbf{NIL}$  
+$\qquad u.color = WHITE$  
+$\qquad u. \pi = NIL$  
 $time = 0$  
 $for\ each\ vertex\ u \in G.V$  
-$\qquad if u.color == textbf{WHITE}$  
+$\qquad if u.color == WHITE$  
 $\qquad \qquad DFS-VISIT(G,u)$  
 $DFS-VISIT(G,u)$  
 $time = time + 1$       //white vertex u has just been discovered  
@@ -2164,10 +2164,12 @@ void Graph :: print_SSC() {
     }
 }
 ```  
+complexity: `O(V+E)`  
 
 + Generate minimum spanning tree of given graph.  
-### Prim-Algorithm  
+### Prim/Kruskal-Algorithm  
 
+**Prim Algorithm**  
 ```cpp  
 #include<bits/stdc++.h>                                                                           
 using namespace std;   
@@ -2222,10 +2224,106 @@ int main() {
     prim_MST(adj_m);
 } 
 ```  
+complexity:`O(ElgV)`  
 
 
 **Kruskal-Algorithm**  
-1111111111
+  + create a forest F (a set of trees), where each vertex in the graph is a separate tree  
+  + create a set S containing all the edges in the graph  
+  + while S is nonempty and F is not yet spanning  
+     + remove an edge with minimum weight from S  
+     + if the removed edge connects two different trees then add it to the forest F, combining two trees into a single tree  
+  At the termination of the algorithm, the forest forms a minimum spanning forest of the graph. If the graph is connected, the forest has a single component and forms a minimum spanning tree  
+
+  **Pseudocode**  
+  1. $MST-KRUSKAL(G,w)$  
+  2. $Disjoin_set = \varnothing$  
+  3. $for\ each\ vertex\ v \in G.V$  
+  4. $\qquad MAKE-SET(v)$  
+  5. $sort\ the\ edge\ of\ G.E\ into\ nondecreasing\ order\ weight\ \omiga$  
+  6. $for\ each\ edge(u,v) \in G.E$  
+  7. $\qquad if\ FIND-SET(v) \nea FIND-SET(u)$  
+  8. $\qquad \qquad A = A \cup \lbrace (u,v) \rbrace$  
+  9. $\qquad \qquad UNION(u,v)$  
+  10. $return A$  
+```cpp
+#include<bits/stdc++.h>
+using namespace std;
+typedef pair<int,int> iPair;
+ 
+bool comp(const pair<int,iPair> a, const pair<int,iPair> b) {
+    return a.first <= b.first;
+}
+struct Graph{
+    int V;
+    vector<pair<int,iPair>> edge;
+    int *parent, *rnk;
+    Graph(int V) {
+        this->V = V;
+        parent = new int[V];
+        rnk = new int[V];
+        for (int i  = 0; i <= V; i++) {
+            parent[i] = i;
+            rnk[i] = 0;
+        }
+    }
+    void add_edge(int w, int u, int v){
+        edge.push_back({w,{u,v}});
+    }
+    int MST_kruskal();
+    int find_p(int u){
+        if(parent[u] != u) parent[u] = find_p(parent[u]);
+        return parent[u];
+    }
+    void merge(int a,int b) {
+        a = find_p(a);
+        b = find_p(b);
+        if (rnk[a] > rnk[b]) parent[b] = a;                                                            
+        else parent[a] = b;
+        if (rnk[a] == rnk[b])  rnk[b]++;
+    }   
+};
+ 
+int Graph :: MST_kruskal(){
+    int mst_w = 0;
+    sort(edge.begin(),edge.end(),comp);
+    vector<pair<int,iPair>> :: iterator it; 
+    for (it = edge.begin(); it != edge.end(); it++) {
+        int u = it->second.first;
+        int v = it->second.second;
+        int set_u = find_p(u);
+        int set_v = find_p(v);
+        if (set_u != set_v) {
+            cout << u << " - " << v << endl;
+            mst_w += it->first;
+            merge(set_u,set_v);
+        }
+    }
+    return mst_w;
+}
+ 
+int main() {
+    int V;
+    ifstream f1("adjacency_matrix.txt", ios::in);
+    f1 >> V;
+    Graph g(V);
+    for (int i = 0; i < V; i++) {
+        for (int j = 0; j < V; j++) {
+            int tmp;
+            f1 >> tmp;
+            if (tmp != 0 && j >= i) {
+                cout << i << " " << j << endl;
+                g.add_edge(tmp,i,j);
+            }
+        }
+    }
+    int ans = g.MST_kruskal();
+    cout << "\nWeight is " << ans << endl;;
+    return 0;
+}
+```  
+**complexity: O(ElgV)**  
+
     unfinished->... 
 
 
