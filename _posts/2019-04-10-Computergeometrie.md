@@ -1,5 +1,6 @@
 ---
 layout: post
+key: 567
 title: Computergeometrie
 ---
 # 1.6 Abstande, Winkel, Inhalte 
