@@ -17,9 +17,7 @@ at least has been proved by ourselves, is a efficient way. But if it is the **gl
 of AI**, i doubt that.  
 the following im gonna introduce some basic terms of NN, including **neuron**, the **signal Encoding** of NN,  
 the main types of NN-structure: **DNN, CNN, RNN** , the way how they trainning and the memories/oblivion. 
-above all compare with human brain in **neural science**, we'll see they have something in common but some other  
-different.  
+above all compare with human brain in **neural science**, we'll see they have something in common but some other different.  
 in conclusion, NN is a efficient structure, so when somebody get a good result by using this method/tool, i'm not  
 surprising. But talking about Simulation, must try to be close to it. for this i'm not optimistic. Literally  
-NN and human brain have something in common, but not to be called as Simulation, it is that we just find the same  
-thought of solving a problem.  
+NN and human brain have something in common, but not to be called as Simulation, it is that we just find the same thought of solving a problem.  
