@@ -2246,6 +2246,8 @@ complexity:`O(ElgV)`
   8. $\qquad \qquad A = A \cup \lbrace (u,v) \rbrace$  
   9. $\qquad \qquad UNION(u,v)$  
   10. $return A$  
+
+
 ```cpp
 #include<bits/stdc++.h>
 using namespace std;
@@ -2322,6 +2324,8 @@ int main() {
     return 0;
 }
 ```  
+
+
 **complexity: O(ElgV)**  
 
     unfinished->... 
