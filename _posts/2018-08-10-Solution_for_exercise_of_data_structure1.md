@@ -2240,9 +2240,9 @@ complexity:`O(ElgV)`
   2. $Disjoin_set = \varnothing$  
   3. $for\ each\ vertex\ v \in G.V$  
   4. $\qquad MAKE-SET(v)$  
-  5. $sort\ the\ edge\ of\ G.E\ into\ nondecreasing\ order\ weight\ \omiga$  
+  5. $sort\ the\ edge\ of\ G.E\ into\ nondecreasing\ order\ weight\ \omega$  
   6. $for\ each\ edge(u,v) \in G.E$  
-  7. $\qquad if\ FIND-SET(v) \nea FIND-SET(u)$  
+  7. $\qquad if\ FIND-SET(v) \neq FIND-SET(u)$  
   8. $\qquad \qquad A = A \cup \lbrace (u,v) \rbrace$  
   9. $\qquad \qquad UNION(u,v)$  
   10. $return A$  
@@ -2327,6 +2327,45 @@ int main() {
 
 
 **complexity: O(ElgV)**  
+
+### Dag-Shortest-Paths  
+
+with the relax-operation of each edge of a directed acyclic graph, which based on the topological order of nodes, we can calculate the shortest path between the source node and each rest node with time complexity O(V+E).  
+According to the algorithm, at first, we make topological sorting so that the linear order in nodes is fixed.  
+
+DAG-SHORTEST-PATHS(G,w,s)  
+topological sort the vetices of G  
+INITIALIZE-SINGLE-SOURCE(G,s)  
+**for** each vertex u, taken in topologically sorted order  
+$\qquad for\ each\ vertex\ v\ \in G.adj[u]$  
+$\qquad \qquad RELAX(u,v,w)$  schleifen
+
+```cpp
+
+struct node {
+    int vertex;
+    int d; //discovering time
+    int f; //time after finding 
+};
+
+void comp(const node a, const node b) {
+    return a.f > b.f;
+}
+void Graph :: DSP() {
+    sort(topological_order,topological_order+V,comp);
+    for (int i = 0; i < V; i++) {
+        int u = tp[i].vertex;
+        list<int>::literator v;
+        for(v = adj[u].begin(); v != adj[u].end(); ++v) {
+            if (way[*v] > way[u] + adj_m[u][*v]) {
+                way[*v] = way[u] + adj_m[u][*v];
+                parent[*v] = u;
+            }
+        }
+    }
+}  
+```  
+
 
     unfinished->... 
 
