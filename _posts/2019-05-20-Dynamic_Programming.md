@@ -38,6 +38,7 @@ new subproblems.
 2. [codeforces_DIV2.214_C](https://xytong.github.io/Capacity/2018/05/26/DP_Problem_Practice.html)  
 3. [Polycarp_and_Div3](https://xytong.github.io/Capacity/2018/07/13/Summery_CF_Contest_DIV3_R496.html)  
 4. [XOR-pyramid](http://codeforces.com/contest/984/problem/D)  
+
 ```py  
 n = int(input())
 a = [int(x) for x in input().split()]
