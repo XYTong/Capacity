@@ -2366,6 +2366,26 @@ void Graph :: DSP() {
 }  
 ```  
 
+time complexity: 'O(V+E)'  
+
+### Dijkrsta-Algorithm  
+
+this algorithm requires weight of all edges be non-negative. 
+**Dijkrsta-Algorithm** keep a set of nodes as key information in process:the shortest path  
+from original node to each node of the set has been found. This algorithm repeatedly pick node  
+with shortest path and let it join to set **S**, then do **RELAX** on each node starting with **u**  
+in the following peusocode we use minimum-priority Queue to store the set.  
+
+$DIJKRSTA(G,w,s)$  
+$INITIALIZE-SINGLE-SOURCE(G,s)$  
+$S = \varnothing$  
+$Q = G.V$  
+$while\ Q \neq \varnothing$  
+$\qquad u = EXTRACT-MIN(Q)$  
+$\qquad S = u \cup S$  
+$\qquad for\ each\ vertex\ v \in G.Adj[u]$  
+$\qquad \qquad RELAX(u,v,w)$  
+
 
     unfinished->... 
 
